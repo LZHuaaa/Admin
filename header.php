@@ -34,10 +34,17 @@
                     <span class="material-icons-sharp">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>
-                
+
+                <a href="#">
+                <span class="material-icons-sharp">
+                    admin_panel_settings
+                </span>
+                <h3>Admin</h3>
+                </a>
+
                 <a href="#">
                     <span class="material-icons-sharp">person</span>
-                    <h3>Members</h3>
+                    <h3>Member</h3>
                 </a>
 
                 <a href="#">
@@ -45,17 +52,30 @@
                     <h3>Orders</h3>
                 </a>
 
-                <a href="#" class="active">
-                    <span class="material-icons-sharp">insights</span>
-                    <h3>Analytics</h3>
+                <a href="#">
+                    <span class="material-icons-sharp">category</span>
+                    <h3>Category</h3>
                 </a>
 
-          
 
                 <a href="#">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Products</h3>
                 </a>
+
+                <a href="#">
+                    <span class="material-icons-sharp">add</span>
+                    <h3>Add Product</h3>
+                </a>
+
+                
+
+                <a href="#" class="active">
+                    <span class="material-icons-sharp">insights</span>
+                    <h3>Analytics</h3>
+                </a>
+
+    
 
                 <a href="#">
                     <span class="material-icons-sharp">report_gmailerrorred</span>
@@ -67,10 +87,7 @@
                     <h3>Settings</h3>
                 </a>
 
-                <a href="#">
-                    <span class="material-icons-sharp">add</span>
-                    <h3>Add Product</h3>
-                </a>
+                
 
                 <a href="#">
                     <span class="material-icons-sharp">logout</span>
@@ -79,9 +96,7 @@
             </div>
         </aside>
 
-        
+
 
         <main>
-        <h1><?= $_title ?? 'Untitled' ?></h1>
-
-        
+            <h1><?= $_title ?? 'Untitled' ?></h1>
