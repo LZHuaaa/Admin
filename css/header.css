@@ -57,7 +57,7 @@ body{
     width: 96%;
     margin: 0 auto;
     gap: 1.8rem;
-    grid-template-columns: 14rem auto 23rem;
+    grid-template-columns: 14rem auto;
 }
 a{
     color : var(--color-dark);
@@ -225,6 +225,102 @@ aside .sidebar a:hover span{
 main{
     margin-top: 1.4rem;
 }
+
+
+/* Table */
+
+/* Table ------------------------------------------------------------------- */
+
+.table {
+    margin-top:20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #333;
+    padding: 5px;
+}
+
+.table th {
+    color: #fff;
+    background: #666;
+}
+
+.table tr:hover td {
+    background: #ccc;
+}
+
+.table td:last-child {
+    position: relative;
+}
+
+.table .popup {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    translate: 5px -50%;
+    z-index: 999;
+    border: 1px solid #333;
+    display: none;
+}
+
+.table tr:hover .popup {
+    display: block;
+}
+
+.detail th {
+    text-align: left;
+}
+
+/* Sorting */
+.table th a {
+    color: inherit;
+    display: block;
+}
+
+.table th a.asc::after {
+    content: ' ▴';
+}
+
+.table th a.desc::after {
+    content: ' ▾';
+}
+
+/* button */
+
+    .btn {
+        display: inline-block;
+        padding: 0.5em 1em;
+        margin-right: 0.5em;
+        font-size: 1em;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 0.25em;
+        transition: background-color 0.3s;
+    }
+    .btn-primary {
+        background-color: var(--color-primary);
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .btn-danger {
+        background-color: var(--color-danger);
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    .btn-warning {
+        background-color: var(--color-warning);
+    }
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .btn-adding {
+        background-color: var(--color-primary-variant);
+    }
 
 
 

@@ -1,0 +1,50 @@
+/* Form styles */
+#edit-form-container {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width:40%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius:4px;
+    
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-close {
+    background-color: red;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius:4px;
+    margin-left:400px;
+}
+
+.btn-close:hover {
+    background-color: #bc2525;
+}

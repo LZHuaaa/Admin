@@ -2,6 +2,17 @@ const sideMenu = document.querySelector("aside");
 const menuBtn = document.querySelector('#menu-btn');
 const closeBtn = document.querySelector('#close-btn');
 const themeToggler = document.querySelector('.theme-toggler');
+const activeElement = document.querySelector(".active");
+
+
+function myFunction(e) {
+    
+    if (activeElement) {
+        activeElement.classList.remove("active");
+    }
+    e.target.className.add("active");
+}
+
 
 menuBtn.addEventListener('click',() =>{
     sideMenu.style.display='block';

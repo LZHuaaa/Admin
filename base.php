@@ -157,7 +157,7 @@ function err($key)
 // ============================================================================
 
 // Global PDO object
-$_db = new PDO('mysql:dbname=db5', 'root', '', [
+$_db = new PDO('mysql:dbname=assignment', 'root', '', [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 ]);
 
@@ -188,5 +188,4 @@ $_genders = [
     'M' => 'Male',
 ];
 
-$_programs = $_db->query('SELECT id, name FROM program')
-    ->fetchAll(PDO::FETCH_KEY_PAIR);
+

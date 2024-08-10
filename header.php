@@ -35,7 +35,7 @@
                     <h3>Dashboard</h3>
                 </a>
 
-                <a href="#">
+                <a href="admin.php">
                 <span class="material-icons-sharp">
                     admin_panel_settings
                 </span>
@@ -70,7 +70,7 @@
 
                 
 
-                <a href="#" class="active">
+                <a href="#">
                     <span class="material-icons-sharp">insights</span>
                     <h3>Analytics</h3>
                 </a>
@@ -100,3 +100,20 @@
 
         <main>
             <h1><?= $_title ?? 'Untitled' ?></h1>
+            <br>
+
+
+            
+
+            <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('aside .sidebar a');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function () {
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
