@@ -4,8 +4,9 @@ require 'base.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
+    $birthday = $_POST['birthday'];
     $email = $_POST['email'];
-    $role = $_POST['role'];
     $status = $_POST['status'];
     $currentPhoto = $_POST['photo']; // Existing photo in the database
 
@@ -51,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Update the database with the new data (or the same photo if not changed)
-        $stmt = $_db->prepare("UPDATE admin SET username = ?, email = ?, role = ?, status = ?, photo = ? WHERE id = ?");
-        if ($stmt->execute([$username, $email, $role, $status, $photo, $id])) {
-            echo "Admin updated successfully.";
+        $stmt = $_db->prepare("UPDATE member SET username = ?,fullname=?, email = ?,birthday=?, status = ?, photo = ? WHERE id = ?");
+        if ($stmt->execute([$username,$fullname, $email, $birthday, $status, $photo, $id])) {
+            echo "Member updated successfully.";
         } else {
-            echo "Failed to update admin.";
+            echo "Failed to update member.";
         }
     }
 }

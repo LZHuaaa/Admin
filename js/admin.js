@@ -1,8 +1,8 @@
 $(document).ready(function () {
-  // Function to attach event handlers
+  // Function to attach event handlers after form is loaded
   function attachFormHandlers() {
     // Remove existing handlers to prevent multiple bindings
-    $(document).off("submit", "#addAdminForm").on("submit", "#addAdminForm", function (event) {
+    $(document).on("submit", "#addAdminForm", function (event) {
       event.preventDefault();
 
       var password = $("#password").val();
@@ -13,16 +13,35 @@ $(document).ready(function () {
         return;
       }
 
-      var formData = $(this).serialize();
+      /* var fileInput = $('#image')[0].files[0];
+        if (!fileInput) {
+            alert("Please select an image.");
+            event.preventDefault();
+            return;
+        }    
+    
+        var fileType = fileInput.type;
+        var validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+        if ($.inArray(fileType, validImageTypes) < 0) {
+            alert("Please select a valid image file (JPEG, PNG, GIF).");
+            event.preventDefault();
+            return;
+        }*/
+
+            var formData = new FormData(this);
 
       $.ajax({
         url: "addAdmin.php",
         type: "POST",
         data: formData,
+        contentType: false,
+        processData: false,
         success: function (response) {
           alert(response);
           $("#edit-form-container").empty();
-          loadAdminList();
+          window.location.href = "admin.php";
+          //loadAdminList();
         },
         error: function () {
           alert("Error adding admin.");
@@ -30,24 +49,23 @@ $(document).ready(function () {
       });
     });
 
-    $(document).off("submit", "#editAdminForm").on("submit", "#editAdminForm", function (event) {
+    $(document).on("submit", "#editAdminForm", function (event) {
       event.preventDefault();
       var confirmUpdate = confirm("Are you sure you want to update?");
       if (confirmUpdate) {
-        var formData = $(this).serialize();
+        var formData = new FormData(this);
 
         $.ajax({
           url: "updateAdmin.php",
           type: "POST",
           data: formData,
+          contentType: false,
+          processData: false,
           success: function (response) {
-            if (response.trim() === 'success') {
-              alert("Updated Successfully!");
-            } else {
-              alert("Error updating data.");
-            }
+            alert(response);
             $("#edit-form-container").empty();
-            loadAdminList();
+            window.location.href = "admin.php";
+            //loadAdminList();
           },
           error: function () {
             alert("Error updating data.");
@@ -56,33 +74,35 @@ $(document).ready(function () {
       }
     });
 
-    $(document).off("submit", "#resetPasswordForm").on("submit", "#resetPasswordForm", function (event) {
-      event.preventDefault();
+    $(document)
+      .off("submit", "#resetPasswordForm")
+      .on("submit", "#resetPasswordForm", function (event) {
+        event.preventDefault();
 
-      var newPassword = $("#newPassword").val();
-      var confirmPassword = $("#confirmPassword").val();
+        var newPassword = $("#newPassword").val();
+        var confirmPassword = $("#confirmPassword").val();
 
-      if (newPassword !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-      }
+        if (newPassword !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
 
-      var formData = $(this).serialize();
+        var formData = $(this).serialize();
 
-      $.ajax({
-        url: "resetPassword.php",
-        type: "POST",
-        data: formData,
-        success: function (response) {
-          alert(response);
-          $("#edit-form-container").empty();
-          loadAdminList();
-        },
-        error: function () {
-          alert("Error resetting password.");
-        },
+        $.ajax({
+          url: "resetPassword.php",
+          type: "POST",
+          data: formData,
+          success: function (response) {
+            alert(response);
+            $("#edit-form-container").empty();
+            window.location.href = "admin.php";
+          },
+          error: function () {
+            alert("Error resetting password.");
+          },
+        });
       });
-    });
   }
 
   // Add Admin Form
@@ -92,7 +112,7 @@ $(document).ready(function () {
       type: "GET",
       success: function (response) {
         $("#edit-form-container").html(response);
-        attachFormHandlers(); // Attach handlers after loading the form
+        attachFormHandlers();
       },
       error: function () {
         alert("Error loading the adding form.");
@@ -110,10 +130,29 @@ $(document).ready(function () {
       data: { id: adminId },
       success: function (response) {
         $("#edit-form-container").html(response);
-        attachFormHandlers(); // Attach handlers after loading the form
+        attachFormHandlers();
       },
       error: function () {
         alert("Error loading the edit form.");
+      },
+    });
+  });
+
+  // Reset Password Form
+  $(document).on("click", ".reset-btn", function () {
+    var adminId = $(this).data("id");
+    var username = $(this).data("username");
+
+    $.ajax({
+      url: "../resetPasswordForm.php",
+      type: "GET",
+      data: { id: adminId, username: username },
+      success: function (response) {
+        $("#edit-form-container").html(response);
+        attachFormHandlers();
+      },
+      error: function () {
+        alert("Error loading the reset password form.");
       },
     });
   });
@@ -135,32 +174,14 @@ $(document).ready(function () {
         data: { id: adminId },
         success: function (response) {
           alert("Deleted Successfully!");
-          loadAdminList();
+          window.location.href = "admin.php";
+          //loadAdminList();
         },
         error: function () {
           alert("Error deleting data.");
         },
       });
     }
-  });
-
-  // Reset Password Form
-  $(document).on("click", ".reset-btn", function () {
-    var adminId = $(this).data("id");
-    var username = $(this).data("username");
-
-    $.ajax({
-      url: "../resetPasswordForm.php",
-      type: "GET",
-      data: { id: adminId, username: username },
-      success: function (response) {
-        $("#edit-form-container").html(response);
-        attachFormHandlers(); // Attach handlers after loading the form
-      },
-      error: function () {
-        alert("Error loading the reset password form.");
-      },
-    });
   });
 
   // Function to reload the admin list
@@ -176,5 +197,181 @@ $(document).ready(function () {
         alert("Error loading the admin list");
       },
     });
+  }
+
+  $("#image").change(function () {
+    var file = this.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#imagePreview").attr("src", e.target.result);
+        $("#imagePreview").show();
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+});
+
+//------------------------------------------------------------------member Part---------------------------------------------------------------------------------
+$(document).ready(function () {
+  function loadTable() {
+    $.ajax({
+      url: "memberTable.php",
+      type: "GET",
+      data: $("#search-form").serialize(),
+      success: function (response) {
+        $("#member-table").html(response);
+      },
+    });
+  }
+
+  // Load the table on page load
+  loadTable();
+
+  // Handle form submission
+  $("#search-form").on("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    loadTable(); // Load table with AJAX
+  });
+
+  // Edit Member Form
+  $(document).on("click", ".edit-member-btn", function () {
+    var userId = $(this).data("id");
+
+    $.ajax({
+      url: "../editMemberForm.php",
+      type: "GET",
+      data: { id: userId },
+      success: function (response) {
+        $("#edit-form-container").html(response);
+        attachMemberHandlers();
+      },
+      error: function () {
+        alert("Error loading the edit form.");
+      },
+    });
+  });
+
+  // Add Member Form
+  $(document).on("click", ".add-member-btn", function () {
+    $.ajax({
+      url: "../addMemberForm.php",
+      type: "GET",
+      success: function (response) {
+        $("#edit-form-container").html(response);
+        attachMemberHandlers();
+      },
+      error: function () {
+        alert("Error loading the adding form.");
+      },
+    });
+  });
+
+  // Delete member
+  $(document).on("click", ".delete-member-btn", function () {
+    var userId = $(this).data("id");
+    var confirmDelete = confirm("Are you sure you want to delete this member?");
+
+    if (confirmDelete) {
+      $.ajax({
+        url: "deleteMember.php",
+        type: "POST",
+        data: { id: userId },
+        success: function (response) {
+          alert("Deleted Successfully!");
+          window.location.href = "member.php";
+          //loadAdminList();
+        },
+        error: function () {
+          alert("Error deleting data.");
+        },
+      });
+    }
+  });
+
+  function attachMemberHandlers() {
+    // Remove existing handlers to prevent multiple bindings
+    $(document).on("submit", "#addMemberForm", function (event) {
+      var password = $("#password").val();
+      var confirmPassword = $("#confirmPassword").val();
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      var formData = new FormData(this);
+
+      $.ajax({
+        url: "addMember.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          alert(response);
+          $("#edit-form-container").empty();
+          window.location.href = "member.php";
+        },
+        error: function () {
+          alert("Error adding member.");
+        },
+      });
+    });
+
+    $(document).on("submit", "#editMemberForm", function (event) {
+      var formData = new FormData(this);
+
+      event.preventDefault();
+      var confirmUpdate = confirm("Are you sure you want to update?");
+      if (confirmUpdate) {
+        $.ajax({
+          url: "updateMember.php",
+          type: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            alert(response);
+            $("#edit-form-container").empty();
+            window.location.href = "member.php";
+            //loadAdminList();
+          },
+          error: function () {
+            alert("Error updating data.");
+          },
+        });
+      }
+    });
+
+    $(document)
+      .off("submit", "#resetPasswordForm")
+      .on("submit", "#resetPasswordForm", function (event) {
+        event.preventDefault();
+
+        var newPassword = $("#newPassword").val();
+        var confirmPassword = $("#confirmPassword").val();
+
+        if (newPassword !== confirmPassword) {
+          alert("Passwords do not match.");
+          return;
+        }
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+          url: "resetPassword.php",
+          type: "POST",
+          data: formData,
+          success: function (response) {
+            alert(response);
+            $("#edit-form-container").empty();
+            window.location.href = "admin.php";
+          },
+          error: function () {
+            alert("Error resetting password.");
+          },
+        });
+      });
   }
 });

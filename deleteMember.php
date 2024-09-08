@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     // Fetch the photo file name
-    $stmt = $_db->prepare("SELECT photo FROM admin WHERE id = ?");
+    $stmt = $_db->prepare("SELECT photo FROM member WHERE id = ?");
     $stmt->execute([$id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -13,7 +13,7 @@ if (isset($_POST['id'])) {
         $photo = $result['photo'];
 
         // Delete the record from the database
-        $stmt = $_db->prepare("DELETE FROM admin WHERE id = ?");
+        $stmt = $_db->prepare("DELETE FROM member WHERE id = ?");
         if ($stmt->execute([$id])) {
             echo "Success";
 
@@ -26,7 +26,7 @@ if (isset($_POST['id'])) {
             echo "Error deleting record from database.";
         }
     } else {
-        echo "Error: Admin not found.";
+        echo "Error: Member not found.";
     }
 }
 ?>

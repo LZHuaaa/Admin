@@ -19,31 +19,24 @@ if (isset($_GET['id'])) {
         // Output the edit form
 ?>
 
-    <button type="button" class="btn-close" id="closeBtn"> Close </button>
-        <form action="updateAdmin.php" method="POST">
-            <input type="hidden" name="id" value="<?= $admin->id ?>">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" value="<?= $admin->username ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="role">Role</label>
+        <button type="button" class="btn-close" id="closeBtn"> Close </button>
+        <form method="POST" id="editAdminForm" enctype="multipart/form-data">
+            <?php
+            html_hidden('id', $admin->id);
+            html_text2('username', 'Username', $admin->username, 'required');
+            html_email2('email', 'Email', $admin->email, '', 'Enter a valid email address.');
+            html_select('role', 'Role', ['admin' => 'Admin', 'staff' => 'Staff'], $admin->role, 'required');
+            html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive'], $admin->status, 'required');
+            html_file('image', 'Profile Image', $admin->photo, 'accept="image/*"');
+            html_hidden('photo', $admin->photo); ?>
+            
+            <img id="imagePreview" src="/images/<?= htmlspecialchars($admin->photo) ?>" alt="Image Preview" style="width:100px;height:100px;">
 
-                <select class="form-control" id="role" name="role" required>
-                    <option value="admin" <?= $admin->role === 'admin' ? 'selected' : '' ?>>Admin</option>
-                    <option value="staff" <?= $admin->role === 'staff' ? 'selected' : '' ?>>Staff</option>
-                </select>
-            </div>
+            <?php
+            html_submit('submitBtn', 'Update');
+            ?>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status" name="status" required>
-                    <option value="Active" <?= $admin->status === 'Active' ? 'selected' : '' ?>>Active</option>
-                    <option value="Inactive" <?= $admin->status === "Inactive" ? 'selected' : '' ?>>Inactive</option>
-                </select>
 
-            </div>
-            <button type="submit" class="btn-success" id="submitBtn">Update</button>
         </form>
 <?php
     } else {

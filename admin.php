@@ -11,9 +11,11 @@ include 'header.php';
 $fields = [
     'id'         => 'Id',
     'username'       => 'Name',
+    'email' =>'Email',
     'role' => 'Role',
     'status' => 'Status',
     'last_login' => 'Last Login',
+    'photo' => 'Photo',
     'Action'
 ];
 
@@ -57,9 +59,11 @@ $_title = 'Manage Admin';
         <tr>
             <td><?= $s->id ?></td>
             <td><?= $s->username ?></td>
+            <td><?= $s->email ?></td>
             <td><?= $s->role ?></td>
             <td><?= $s->status ?></td>
             <td><?= $s->last_login ?></td>
+            <td><img src="images/<?= htmlspecialchars($s->photo) ?>" alt="Photo" style="width:100px;height:100px;"></td>
             <td>
                 <button class="btn btn-primary edit-btn" data-id="<?= $s->id ?> ">Edit</button>
                 <button class="btn btn-danger delete-btn" data-id="<?= $s->id ?>">Delete</button>

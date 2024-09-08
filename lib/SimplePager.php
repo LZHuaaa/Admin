@@ -44,16 +44,16 @@ class SimplePager {
         $next = min($this->page + 1, $this->page_count);
 
         echo "<nav class='pager' $attr>";
-        echo "<a href='?page=1&$href'>First &nbsp;</a>";
-        echo "<a href='?page=$prev&$href'>Previous&nbsp; </a>";
+        echo "<a href='?page=1&$href'>First</a>";
+        echo "<a href='?page=$prev&$href'>Previous</a>";
 
         for ($p = 1; $p <= $this->page_count; $p++) {
             $c = $p == $this->page ? 'active' : '';
-            echo "<a href='?page=$p&$href' class='$c'>$p&nbsp;</a>";
+            echo "<a href='?page=$p&$href' class='$c'>$p</a>";
         }
 
-        echo "<a href='?page=$next&$href'>&nbsp;Next</a>";
-        echo "<a href='?page=$this->page_count&$href'>&nbsp;Last</a>";
+        echo "<a href='?page=$next&$href'>Next</a>";
+        echo "<a href='?page=$this->page_count&$href'>Last</a>";
         echo "</nav>";
     }
 }

@@ -20,7 +20,7 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="images/logo.png" alt="">
+                    <img src="images/profile-1.jpg" alt="">
                     <h2>EGA<span class="danger">TOR</span></h2>
                 </div>
 
@@ -42,7 +42,7 @@
                 <h3>Admin</h3>
                 </a>
 
-                <a href="#">
+                <a href="member.php">
                     <span class="material-icons-sharp">person</span>
                     <h3>Member</h3>
                 </a>

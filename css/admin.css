@@ -5,6 +5,7 @@
     border: 1px solid black;
     border-radius: 4px;
     width:40%;
+    font-size: 16px;
 }
 
 .form-group {
@@ -15,6 +16,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+
 }
 
 .form-control {
@@ -48,3 +50,5 @@
 .btn-close:hover {
     background-color: #bc2525;
 }
+
+

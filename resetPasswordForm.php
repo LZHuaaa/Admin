@@ -15,21 +15,18 @@ $username = $_GET['username'];
 
 ?>
 
-<h2>Reset Password For <?= $username ?></h2>
-<button type="button" class="btn-close" id="closeBtn">Close</button>
 
-<form id="resetPasswordForm" action="resetPassword.php" method="POST">
-    <input type="hidden" name="id" value="<?= htmlspecialchars($adminId) ?>">
+    <h2 style="display:inline;">Reset Password For <?= htmlspecialchars($username) ?></h2>
+    <button type="button" class="btn-close" id="closeBtn">Close</button>
 
-    <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" class="form-control" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters" required>
-    </div>
 
-    <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters" required>
-    </div>
+<form id="resetPasswordForm" method="POST">
+    <?php html_hidden('id', htmlspecialchars($adminId)); ?>
 
-    <button type="submit" class="btn-success" id="submitResetPasswordBtn">Reset Password</button>
+    <?php
+    html_password1('newPassword', 'password', 'New Password', 'pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters" required');
+    html_password1('confirmPassword', 'confirmPassword', 'Confirm Password', 'pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters" required');
+    ?>
+
+    <?php html_submit('submitResetPasswordBtn', 'Reset Password'); ?>
 </form>

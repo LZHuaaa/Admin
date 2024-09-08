@@ -40,18 +40,20 @@ require 'base.php';
 
 
 <button type="button" class="btn-close" id="closeBtn">Close</button>
-<form id="addAdminForm" method="POST" enctype="multipart/form-data">
+<form id="addMemberForm" method="POST" enctype="multipart/form-data">
     <?php
     html_text('username', 'Username', 'required');
+    html_text('fullname', 'Full Name', 'required');
     html_email('email', 'Email', '', 'Enter a valid email address.');
+    html_birthdate('birthday', 'Birthdate', '', 'Select your birthdate.');
     html_password('password', 'Password', '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}', 'Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters', 'required');
     html_password('confirmPassword', 'Confirm Password', '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}', 'Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters', 'required');
-    html_select('role', 'Role', ['Admin' => 'Admin', 'Staff' => 'Staff']);
     html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive']);
     html_file('image', 'Profile Image', 'accept="image/*" required'); ?>
+
     <img id="imagePreview" src="/images/photo.jpg" alt="Image Preview" style="display:block;">
-    <?php html_submit('submitAddBtn', 'Add');
-    ?>
+
+    <?php html_submit('submitAddBtn', 'Add');  ?>
 
 </form>
 

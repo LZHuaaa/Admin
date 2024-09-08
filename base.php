@@ -75,11 +75,86 @@ function encode($value)
 }
 
 // Generate <input type='text'>
-function html_text($key, $attr = '')
-{
-    $value = encode($GLOBALS[$key] ?? '');
-    echo "<input type='text' id='$key' name='$key' value='$value' $attr>";
+function html_text($key, $label, $attr = '') {
+    $value = htmlspecialchars($GLOBALS[$key] ?? '', ENT_QUOTES);
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='text' id='$key' name='$key' value='$value' $attr class='form-control'>
+          </div>";
 }
+
+function html_text2($key, $label, $value = '', $attr = '') {
+    $value = htmlspecialchars($value, ENT_QUOTES);
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='text' id='$key' name='$key' value='$value' $attr class='form-control'>
+          </div>";
+}
+
+
+//password
+function html_password($key, $label, $pattern = '', $title = '', $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='password' id='$key' name='$key' pattern='$pattern' title='$title' $attr class='form-control' required>
+          </div>";
+}
+
+function html_password1($id, $name, $label, $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$id'>$label</label>
+            <input type='password' id='$id' name='$name' class='form-control' $attr>
+          </div>";
+}
+
+//email
+function html_email($key, $label, $title = '', $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='email' id='$key' name='$key' title='$title' $attr class='form-control' required>
+          </div>";
+}
+
+
+function html_email2($key, $label,$value, $title = '', $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='email' id='$key' name='$key'value='$value' title='$title' $attr class='form-control' required>
+          </div>";
+}
+//birthday
+function html_birthdate($key, $label, $value, $title = '', $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='date' id='$key' name='$key' value='$value' title='$title' $attr class='form-control' required>
+          </div>";
+}
+
+
+
+//dropdown
+function html_select($key, $label, $options = [], $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <select id='$key' name='$key' $attr class='form-control' required>";
+    
+    foreach ($options as $value => $display) {
+        $selected = ($GLOBALS[$key] ?? '') == $value ? 'selected' : '';
+        echo "<option value='$value' $selected>$display</option>";
+    }
+    
+    echo "</select></div>";
+}
+
+//file upload
+function html_file($key, $label,$value, $attr = '') {
+    echo "<div class='form-group'>
+            <label for='$key'>$label</label>
+            <input type='file' id='$key' value='$value' name='$key' $attr class='form-control'>
+          </div>";
+}
+
+
 
 // Generate <input type='search'>
 function html_search($key, $attr = '')
@@ -103,20 +178,7 @@ function html_radios($key, $items, $br = false)
     echo '</div>';
 }
 
-// Generate <select>
-function html_select($key, $items, $default = '- Select One -', $attr = '')
-{
-    $value = encode($GLOBALS[$key] ?? '');
-    echo "<select id='$key' name='$key' $attr>";
-    if ($default !== null) {
-        echo "<option value=''>$default</option>";
-    }
-    foreach ($items as $id => $text) {
-        $state = $id == $value ? 'selected' : '';
-        echo "<option value='$id' $state>$text</option>";
-    }
-    echo '</select>';
-}
+
 
 // Generate table headers <th>
 function table_headers($fields, $sort, $dir, $href = '')
@@ -133,6 +195,18 @@ function table_headers($fields, $sort, $dir, $href = '')
         echo "<th><a href='?sort=$k&dir=$d&$href' class='$c'>$v</a></th>";
     }
 }
+
+//hidden
+function html_hidden($key, $value) {
+    $value = htmlspecialchars($value, ENT_QUOTES);
+    echo "<input type='hidden' name='$key' value='$value'>";
+}
+//submit
+function html_submit($id, $value, $class = 'btn-success') {
+    echo "<button type='submit' id='$id' class='$class'>$value</button>";
+}
+
+
 
 // ============================================================================
 // Error Handlings
@@ -187,5 +261,41 @@ $_genders = [
     'F' => 'Female',
     'M' => 'Male',
 ];
+
+function get_file($key) {
+    $f = $_FILES[$key] ?? null;
+    
+    if ($f && $f['error'] == 0) {
+        return (object)$f;
+    }
+
+    return null;
+}
+
+// Crop, resize and save photo
+function save_photo($f, $folder, $width = 200, $height = 200) {
+    $photo = uniqid() . '.jpg';
+    
+    require_once 'lib/SimpleImage.php';
+    $img = new SimpleImage();
+    $img->fromFile($f->tmp_name)
+        ->thumbnail($width, $height)
+        ->toFile("$folder/$photo", 'image/jpeg');
+
+    return $photo;
+}
+
+function html_number($key, $min = '', $max = '', $step = '', $attr = '') {
+    $value = encode($GLOBALS[$key] ?? '');
+    echo "<input type='number' id='$key' name='$key' value='$value'
+                 min='$min' max='$max' step='$step' $attr>";
+}
+
+
+
+// Is money?
+function is_money($value) {
+    return preg_match('/^\-?\d+(\.\d{1,2})?$/', $value);
+}
 
 
