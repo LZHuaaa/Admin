@@ -31,7 +31,6 @@
     margin: 0;
     padding: 0;
     outline: 0;
-    appearance: none;
     border: 0;
     text-decoration: none;
     list-style: none;
@@ -337,6 +336,22 @@ main{
         background-color: #218838;
     }
 
+
+    #select-all {
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    
+    input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        margin-left:50px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
 
 
 

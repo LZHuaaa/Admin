@@ -21,7 +21,7 @@
             <div class="top">
                 <div class="logo">
                     <img src="images/profile-1.jpg" alt="">
-                    <h2>EGA<span class="danger">TOR</span></h2>
+                    <h2>HAPPY<span class="danger"> FITNESS</span></h2>
                 </div>
 
                 <div class="close" id="close-btn">

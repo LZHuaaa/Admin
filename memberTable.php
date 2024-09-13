@@ -54,13 +54,18 @@ $arr = $p->result;
 </p>
 
 <div style="font-size:13px;" class="testing">
+
     <table class="table">
-        <tr>
+        <tr> 
+            <th><input type="checkbox" id="select-all"> Select All &nbsp;</th>
             <?= table_headers($fields, $sort, $dir, "page=$page&search=" . urlencode($search)) ?>
         </tr>
 
         <?php foreach ($arr as $s) : ?>
             <tr>
+                <td>
+                    <input type="checkbox" name="userID[]" value="<?= $s->userID ?>"> 
+                </td>
                 <td><?= htmlspecialchars($s->userID) ?></td>
                 <td><?= htmlspecialchars($s->username) ?></td>
                 <td><?= htmlspecialchars($s->fullname) ?></td>
@@ -90,3 +95,18 @@ $arr = $p->result;
 <br>
 
 <?= $p->html("sort=$sort&dir=$dir&search=" . urlencode($search)) ?>
+
+<script>
+$('#select-all').click(function(event) {
+    if (this.checked) {
+        $('input[type="checkbox"]').each(function() {
+            this.checked = true;
+        });
+    } else {
+        $('input[type="checkbox"]').each(function() {
+            this.checked = false;
+        });
+    }
+});
+
+</script>

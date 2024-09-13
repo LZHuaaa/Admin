@@ -1,5 +1,62 @@
 //---------------------------------------------------------Admin Part-----------------------------------------------------------------------------------
 
+$("#batch-delete-btn").click(function (event) {
+  event.preventDefault(); // Prevent the form from submitting the traditional way
+
+  // Collect selected IDs
+  var selectedIds = [];
+  $('input[name="userID[]"]:checked').each(function () {
+    selectedIds.push(this.value);
+  });
+
+  if (selectedIds.length === 0) {
+    alert("Please select at least one item to delete.");
+    return;
+  }
+
+  if (confirm("Are you sure you want to delete the selected items?")) {
+    $.ajax({
+      url: "batch_delete.php",
+      type: "POST",
+      data: { ids: selectedIds },
+      success: function (response) {
+        alert(response);
+        location.reload();
+       // window.location.href = "admin.php";
+      },
+      error: function () {
+        alert("An error occurred while processing your request.");
+      },
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Select/Deselect all checkboxes
+  const selectAllCheckbox = document.getElementById("select-all");
+  const checkboxes = document.querySelectorAll('input[name="userID[]"]');
+
+  selectAllCheckbox.addEventListener("change", function () {
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAllCheckbox.checked;
+    });
+  });
+
+  // Ensure form is submitted only if at least one checkbox is selected
+  const batchDeleteBtn = document.getElementById("batch-delete-btn");
+  const form = document.getElementById("f");
+
+  form.addEventListener("submit", function (e) {
+    const checkedBoxes = Array.from(checkboxes).some(
+      (checkbox) => checkbox.checked
+    );
+    if (!checkedBoxes) {
+      e.preventDefault();
+      alert("Please select at least one record to delete.");
+    }
+  });
+});
+
 //addAdminForm, editAdminForm, resetPasswordForm
 $(document).ready(function () {
   function attachFormHandlers() {
@@ -152,7 +209,7 @@ $(document).ready(function () {
     var role = $(this).data("role");
 
     $.ajax({
-      url: "../resetPasswordForm.php",
+      url: "resetPasswordForm.php",
       type: "GET",
       data: { id: adminId, username: username, role: role },
       success: function (response) {
@@ -169,6 +226,19 @@ $(document).ready(function () {
   $(document).on("click", "#closeBtn", function () {
     $("#edit-form-container").empty();
   });
+
+  //select-all
+  $('#select-all').click(function(event) {
+    if (this.checked) {
+        $('input[type="checkbox"]').each(function() {
+            this.checked = true;
+        });
+    } else {
+        $('input[type="checkbox"]').each(function() {
+            this.checked = false;
+        });
+    }
+});
 
   // Delete Admin
   $(document).on("click", ".delete-btn", function () {
@@ -388,41 +458,16 @@ $(document).ready(function () {
     }
   );
 
+  //-------------------------------------------------------------Category Part----------------------------------------------------------------------------
 
-//-------------------------------------------------------------Category Part----------------------------------------------------------------------------
+  function attachCategoryForm() {
+    $(document).on("submit", "#addCategoryForm", function (event) {
+      event.preventDefault();
 
-
-function attachCategoryForm() {
-  $(document).on("submit", "#addCategoryForm", function (event) {
-    event.preventDefault();
-
-    var formData = new FormData(this);
-
-    $.ajax({
-      url:"addCategory.php",
-      type: "POST",
-      data: formData,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-        alert(response);
-        $("#edit-form-container").empty();
-        window.location.href = "category.php";
-      },
-      error: function () {
-        alert("Error adding category.");
-      },
-    });
-  });
-
-  $(document).on("submit", "#editCategoryForm", function (event) {
-    event.preventDefault();
-    var confirmUpdate = confirm("Are you sure you want to update?");
-    if (confirmUpdate) {
       var formData = new FormData(this);
 
       $.ajax({
-        url: "updateCategory.php",
+        url: "addCategory.php",
         type: "POST",
         data: formData,
         contentType: false,
@@ -431,69 +476,124 @@ function attachCategoryForm() {
           alert(response);
           $("#edit-form-container").empty();
           window.location.href = "category.php";
-          //loadAdminList();
         },
         error: function () {
-          alert("Error updating data.");
+          alert("Error adding category.");
+        },
+      });
+    });
+
+    $(document).on("submit", "#editCategoryForm", function (event) {
+      event.preventDefault();
+      var confirmUpdate = confirm("Are you sure you want to update?");
+      if (confirmUpdate) {
+        var formData = new FormData(this);
+
+        $.ajax({
+          url: "updateCategory.php",
+          type: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            alert(response);
+            $("#edit-form-container").empty();
+            window.location.href = "category.php";
+            //loadAdminList();
+          },
+          error: function () {
+            alert("Error updating data.");
+          },
+        });
+      }
+    });
+  }
+
+  // Click add button then jum  to Add Category Form
+  $(document).on("click", ".add-category-btn", function () {
+    $.ajax({
+      url: "../addCategoryForm.php",
+      type: "GET",
+      success: function (response) {
+        $("#edit-form-container").html(response);
+        attachCategoryForm();
+      },
+      error: function () {
+        alert("Error loading the adding form.");
+      },
+    });
+  });
+
+  // click edit button then jump to Edit Category Form
+  $(document).on("click", ".edit-category-btn", function () {
+    var Id = $(this).data("id");
+
+    $.ajax({
+      url: "../editCategoryForm.php",
+      type: "GET",
+      data: { id: Id },
+      success: function (response) {
+        $("#edit-form-container").html(response);
+        attachCategoryForm();
+      },
+      error: function () {
+        alert("Error loading the edit form.");
+      },
+    });
+  });
+
+  $(document).on("click", ".delete-category-btn", function () {
+    var Id = $(this).data("id");
+    var confirmDelete = confirm(
+      "Are you sure you want to delete this category?"
+    );
+
+    if (confirmDelete) {
+      $.ajax({
+        url: "deleteCategory.php",
+        type: "POST",
+        data: { id: Id },
+        success: function () {
+          alert("Deleted Successfully!");
+          window.location.href = "category.php";
+        },
+        error: function () {
+          alert("Error deleting data.");
         },
       });
     }
   });
 
-}
 
-// Click add button then jum  to Add Category Form
-$(document).on("click", ".add-category-btn", function () {
-  $.ajax({
-    url: "../addCategoryForm.php",
-    type: "GET",
-    success: function (response) {
-      $("#edit-form-container").html(response);
-      attachCategoryForm();
-    },
-    error: function () {
-      alert("Error loading the adding form.");
-    },
-  });
-});
-
-// click edit button then jump to Edit Category Form
-$(document).on("click", ".edit-category-btn", function () {
-  var Id = $(this).data("id");
-
-  $.ajax({
-    url: "../editCategoryForm.php",
-    type: "GET",
-    data: { id: Id },
-    success: function (response) {
-      $("#edit-form-container").html(response);
-      attachCategoryForm();
-    },
-    error: function () {
-      alert("Error loading the edit form.");
-    },
-  });
-});
-
-
-$(document).on("click", ".delete-category-btn", function () {
-  var Id = $(this).data("id");
-  var confirmDelete = confirm("Are you sure you want to delete this category?");
-
-  if (confirmDelete) {
-    $.ajax({
-      url: "deleteCategory.php",
-      type: "POST",
-      data: { id: Id },
-      success: function () {
-        alert("Deleted Successfully!");
-        window.location.href = "category.php";
-      },
-      error: function () {
-        alert("Error deleting data.");
-      },
+  $("#batch-delete-category-btn").click(function (event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+  
+    // Collect selected IDs
+    var selectedIds = [];
+    $('input[name="categoryID[]"]:checked').each(function () {
+      selectedIds.push(this.value);
     });
-  }
-});
-
+  
+    if (selectedIds.length === 0) {
+      alert("Please select at least one item to delete.");
+      return;
+    }
+  
+    if (confirm("Are you sure you want to delete the selected items?")) {
+      $.ajax({
+        url: "batch_delete_category.php",
+        type: "POST",
+        data: { ids: selectedIds },
+        success: function (response) {
+          alert(response);
+          location.reload();
+         // window.location.href = "admin.php";
+        },
+        error: function () {
+          alert("An error occurred while processing your request.");
+        },
+      });
+    }
+  });
+  
 });

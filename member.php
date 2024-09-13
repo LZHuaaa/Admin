@@ -31,6 +31,7 @@ $search = req('search');
 ?>
 
 <button style="font-size:15px;margin-bottom:20px;" class="btn btn-primary add-member-btn">Add Member</button>
+<button type="submit" class="btn btn-danger" id="batch-delete-btn">Delete Selected</button>
 
 
 

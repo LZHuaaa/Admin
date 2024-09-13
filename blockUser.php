@@ -9,7 +9,7 @@ if (isset($_GET['action']) && isset($_GET['id']) && isset($_GET['username'])) {
 
     if ($action === 'block' || $action === 'unblock') {
     
-        $status = $action === 'block' ? 'Blocked' : 'Active';
+        $status = $action === 'block' ? 'Inactive' : 'Active';
 
         $stmt = $_db->prepare("UPDATE user SET status = ? WHERE userID = ?");
         $stmt->execute([$status, $id]);
