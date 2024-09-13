@@ -75,7 +75,8 @@ function encode($value)
 }
 
 // Generate <input type='text'>
-function html_text($key, $label, $attr = '') {
+function html_text($key, $label, $attr = '')
+{
     $value = htmlspecialchars($GLOBALS[$key] ?? '', ENT_QUOTES);
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
@@ -83,7 +84,8 @@ function html_text($key, $label, $attr = '') {
           </div>";
 }
 
-function html_text2($key, $label, $value = '', $attr = '') {
+function html_text2($key, $label, $value = '', $attr = '')
+{
     $value = htmlspecialchars($value, ENT_QUOTES);
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
@@ -93,14 +95,16 @@ function html_text2($key, $label, $value = '', $attr = '') {
 
 
 //password
-function html_password($key, $label, $pattern = '', $title = '', $attr = '') {
+function html_password($key, $label, $pattern = '', $title = '', $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
             <input type='password' id='$key' name='$key' pattern='$pattern' title='$title' $attr class='form-control' required>
           </div>";
 }
 
-function html_password1($id, $name, $label, $attr = '') {
+function html_password1($id, $name, $label, $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$id'>$label</label>
             <input type='password' id='$id' name='$name' class='form-control' $attr>
@@ -108,7 +112,8 @@ function html_password1($id, $name, $label, $attr = '') {
 }
 
 //email
-function html_email($key, $label, $title = '', $attr = '') {
+function html_email($key, $label, $title = '', $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
             <input type='email' id='$key' name='$key' title='$title' $attr class='form-control' required>
@@ -116,14 +121,16 @@ function html_email($key, $label, $title = '', $attr = '') {
 }
 
 
-function html_email2($key, $label,$value, $title = '', $attr = '') {
+function html_email2($key, $label, $value, $title = '', $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
             <input type='email' id='$key' name='$key'value='$value' title='$title' $attr class='form-control' required>
           </div>";
 }
 //birthday
-function html_birthdate($key, $label, $value, $title = '', $attr = '') {
+function html_birthdate($key, $label, $value, $title = '', $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
             <input type='date' id='$key' name='$key' value='$value' title='$title' $attr class='form-control' required>
@@ -133,21 +140,24 @@ function html_birthdate($key, $label, $value, $title = '', $attr = '') {
 
 
 //dropdown
-function html_select($key, $label, $options = [], $attr = '') {
+function html_select($key, $label, $options = [], $selectedValue = '', $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
-            <select id='$key' name='$key' $attr class='form-control' required>";
-    
+            <select id='$key' name='$key' $attr class='form-control'>";
+
     foreach ($options as $value => $display) {
-        $selected = ($GLOBALS[$key] ?? '') == $value ? 'selected' : '';
+        $selected = ($selectedValue == $value) ? 'selected' : '';
         echo "<option value='$value' $selected>$display</option>";
     }
-    
+
     echo "</select></div>";
 }
 
+
 //file upload
-function html_file($key, $label,$value, $attr = '') {
+function html_file($key, $label, $value, $attr = '')
+{
     echo "<div class='form-group'>
             <label for='$key'>$label</label>
             <input type='file' id='$key' value='$value' name='$key' $attr class='form-control'>
@@ -197,12 +207,14 @@ function table_headers($fields, $sort, $dir, $href = '')
 }
 
 //hidden
-function html_hidden($key, $value) {
+function html_hidden($key, $value)
+{
     $value = htmlspecialchars($value, ENT_QUOTES);
-    echo "<input type='hidden' name='$key' value='$value'>";
+    echo "<input type='hidden' name='$key' id='$key' value='$value'>";
 }
 //submit
-function html_submit($id, $value, $class = 'btn-success') {
+function html_submit($id, $value, $class = 'btn-success')
+{
     echo "<button type='submit' id='$id' class='$class'>$value</button>";
 }
 
@@ -231,7 +243,7 @@ function err($key)
 // ============================================================================
 
 // Global PDO object
-$_db = new PDO('mysql:dbname=assignment', 'root', '', [
+$_db = new PDO('mysql:dbname=happyfitness', 'root', '', [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
 ]);
 
@@ -262,9 +274,10 @@ $_genders = [
     'M' => 'Male',
 ];
 
-function get_file($key) {
+function get_file($key)
+{
     $f = $_FILES[$key] ?? null;
-    
+
     if ($f && $f['error'] == 0) {
         return (object)$f;
     }
@@ -273,9 +286,10 @@ function get_file($key) {
 }
 
 // Crop, resize and save photo
-function save_photo($f, $folder, $width = 200, $height = 200) {
+function save_photo($f, $folder, $width = 200, $height = 200)
+{
     $photo = uniqid() . '.jpg';
-    
+
     require_once 'lib/SimpleImage.php';
     $img = new SimpleImage();
     $img->fromFile($f->tmp_name)
@@ -285,7 +299,8 @@ function save_photo($f, $folder, $width = 200, $height = 200) {
     return $photo;
 }
 
-function html_number($key, $min = '', $max = '', $step = '', $attr = '') {
+function html_number($key, $min = '', $max = '', $step = '', $attr = '')
+{
     $value = encode($GLOBALS[$key] ?? '');
     echo "<input type='number' id='$key' name='$key' value='$value'
                  min='$min' max='$max' step='$step' $attr>";
@@ -294,8 +309,7 @@ function html_number($key, $min = '', $max = '', $step = '', $attr = '') {
 
 
 // Is money?
-function is_money($value) {
+function is_money($value)
+{
     return preg_match('/^\-?\d+(\.\d{1,2})?$/', $value);
 }
-
-

@@ -5,9 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $username = $_POST['username'];
     $fullname = $_POST['fullname'];
-    $birthday = $_POST['birthday'];
     $email = $_POST['email'];
-    $status = $_POST['status'];
+   // $status = $_POST['status'];
     $currentPhoto = $_POST['photo']; // Existing photo in the database
 
     $f = get_file('image');
@@ -52,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Update the database with the new data (or the same photo if not changed)
-        $stmt = $_db->prepare("UPDATE member SET username = ?,fullname=?, email = ?,birthday=?, status = ?, photo = ? WHERE id = ?");
-        if ($stmt->execute([$username,$fullname, $email, $birthday, $status, $photo, $id])) {
+        $stmt = $_db->prepare("UPDATE user SET username = ?,fullname=?, email = ?, photo = ? WHERE userid = ?");
+        if ($stmt->execute([$username,$fullname, $email, $photo, $id])) {
             echo "Member updated successfully.";
         } else {
             echo "Failed to update member.";

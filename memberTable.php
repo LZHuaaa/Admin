@@ -3,19 +3,17 @@ require_once 'base.php'; // Use require_once to avoid multiple inclusions
 
 // (1) Sorting
 $fields = [
-    'id' => 'Id',
+    'userID' => 'Id',
     'username' => 'Username',
     'fullname' => 'Full Name',
     'email' => 'Email',
-    'dateCreated' => 'Date Created',
-    'birthday' => 'Birthday',
     'photo' => 'Photo',
     'status' => 'Status',
     'Action'
 ];
 
 $sort = req('sort');
-key_exists($sort, $fields) || $sort = 'id';
+key_exists($sort, $fields) || $sort = 'userID';
 
 $dir = req('dir');
 in_array($dir, ['asc', 'desc']) || $dir = 'asc';
@@ -24,46 +22,70 @@ in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 $page = req('page', 1);
 
 // (3) Searching
-$search = req('search');
-$searchCondition = $search ? "WHERE username LIKE '%$search%' OR fullname LIKE '%$search%' OR email LIKE '%$search%'" : '';
+$search = req('search', ''); // Default to an empty string if not set
+
+// Sanitize the search input to prevent SQL injection
+$search = htmlspecialchars($search, ENT_QUOTES, 'UTF-8');
+
+// Build search condition
+$searchCondition = '';
+if ($search) {
+    $searchCondition = "AND (username LIKE :search OR fullname LIKE :search OR email LIKE :search)";
+}
 
 require_once 'lib/SimplePager';
 
-$query = "SELECT * FROM member $searchCondition ORDER BY $sort $dir";
-$p = new SimplePager($query, [], 10, $page);
+// Prepare query with search condition
+$query = "SELECT * FROM user WHERE role='member' $searchCondition ORDER BY $sort $dir";
+
+// Prepare parameters
+$params = [];
+if ($search) {
+    $params[':search'] = "%$search%";
+}
+
+$p = new SimplePager($query, $params, 10, $page);
 $arr = $p->result;
 ?>
-
 
 <p>
     <?= $p->count ?> of <?= $p->item_count ?> record(s) |
     Page <?= $p->page ?> of <?= $p->page_count ?>
-    
-   
 </p>
 
-<table class="table">
-    <tr>
-        <?= table_headers($fields, $sort, $dir, "page=$page") ?>
-    </tr>
-
-    <?php foreach ($arr as $s) : ?>
+<div style="font-size:13px;" class="testing">
+    <table class="table">
         <tr>
-            <td><?= $s->id ?></td>
-            <td><?= htmlspecialchars($s->username) ?></td>
-            <td><?= htmlspecialchars($s->fullname) ?></td>
-            <td><?= htmlspecialchars($s->email) ?></td>
-            <td><?= htmlspecialchars($s->dateCreated) ?></td>
-            <td><?= htmlspecialchars($s->birthday) ?></td>
-            <td><img src="images/<?= htmlspecialchars($s->photo) ?>" alt="Photo" style="width:100px;height:100px;"></td>
-            <td><?= htmlspecialchars($s->status) ?></td>
-            <td>
-                <button class="btn btn-primary edit-member-btn" data-id="<?= $s->id ?>">Edit</button>
-                <button class="btn btn-danger delete-member-btn" data-id="<?= $s->id ?>">Delete</button>
-            </td>
+            <?= table_headers($fields, $sort, $dir, "page=$page&search=" . urlencode($search)) ?>
         </tr>
-    <?php endforeach ?>
-</table>
+
+        <?php foreach ($arr as $s) : ?>
+            <tr>
+                <td><?= htmlspecialchars($s->userID) ?></td>
+                <td><?= htmlspecialchars($s->username) ?></td>
+                <td><?= htmlspecialchars($s->fullname) ?></td>
+                <td><?= htmlspecialchars($s->email) ?></td>
+                <td><img src="images/<?= htmlspecialchars($s->photo) ?>" alt="Photo" style="width:100px;height:100px;"></td>
+                <td><?= htmlspecialchars($s->status) ?></td>
+                <td>
+                    <button class="btn btn-primary edit-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>">Edit</button>
+
+                    <button class="btn btn-warning reset-btn" data-id="<?= $s->userID ?>" data-username="<?= htmlspecialchars($s->username) ?>">Reset Password</button>
+
+                    <?php if ($s->status === 'Active') : ?>
+                        <button class="btn btn-block block-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>" data-username="<?= htmlspecialchars($s->username) ?>" data-role="<?= htmlspecialchars($s->role) ?>">Block</button>
+                    <?php else : ?>
+                        <button class="btn btn-unblock unblock-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>" data-username="<?= htmlspecialchars($s->username) ?>" data-role="<?= htmlspecialchars($s->role) ?>">Unblock</button>
+                    <?php endif; ?>
+
+                    <button class="btn btn-danger delete-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>">Delete</button>
+
+                </td>
+            </tr>
+        <?php endforeach ?>
+
+    </table>
+</div>
 
 <br>
 

@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $id = $_POST['id'];
 
     // Fetch the photo file name
-    $stmt = $_db->prepare("SELECT photo FROM member WHERE id = ?");
+    $stmt = $_db->prepare("SELECT photo FROM user WHERE userid = ?");
     $stmt->execute([$id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -13,7 +13,7 @@ if (isset($_POST['id'])) {
         $photo = $result['photo'];
 
         // Delete the record from the database
-        $stmt = $_db->prepare("DELETE FROM member WHERE id = ?");
+        $stmt = $_db->prepare("DELETE FROM user WHERE userid = ?");
         if ($stmt->execute([$id])) {
             echo "Success";
 

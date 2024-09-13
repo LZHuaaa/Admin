@@ -5,7 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
-    $birthday = $_POST['birthday'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); 
     $status = $_POST['status'];
 
@@ -40,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             temp('info', 'Photo uploaded successfully.');
 
             // Insert form data including the image name into the database
-            $stmt = $_db->prepare("INSERT INTO member (username, fullname, email, birthday, password, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$username, $fullname, $email, $birthday, $password, $status, $newFileName]);
+            $stmt = $_db->prepare("INSERT INTO user (username, fullname, email, role, password, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$username, $fullname, $email,'customer', $password,$status, $newFileName]);
 
             echo "Member added successfully.";
 

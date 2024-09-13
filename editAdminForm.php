@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Fetch admin data based on ID
-    $stmt = $_db->prepare("SELECT * FROM admin WHERE id = ?");
+    $stmt = $_db->prepare("SELECT * FROM user WHERE role='admin' and userid = ?");
     $stmt->execute([$id]);
     $admin = $stmt->fetch();
 
@@ -22,11 +22,11 @@ if (isset($_GET['id'])) {
         <button type="button" class="btn-close" id="closeBtn"> Close </button>
         <form method="POST" id="editAdminForm" enctype="multipart/form-data">
             <?php
-            html_hidden('id', $admin->id);
+            html_hidden('id', $admin->userID);
             html_text2('username', 'Username', $admin->username, 'required');
+            html_text2('fullname', 'Full Name', $admin->fullname, 'required');
             html_email2('email', 'Email', $admin->email, '', 'Enter a valid email address.');
-            html_select('role', 'Role', ['admin' => 'Admin', 'staff' => 'Staff'], $admin->role, 'required');
-            html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive'], $admin->status, 'required');
+            //html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive'], $admin->status, 'required');
             html_file('image', 'Profile Image', $admin->photo, 'accept="image/*"');
             html_hidden('photo', $admin->photo); ?>
             

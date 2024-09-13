@@ -52,7 +52,7 @@
                     <h3>Orders</h3>
                 </a>
 
-                <a href="#">
+                <a href="category.php">
                     <span class="material-icons-sharp">category</span>
                     <h3>Category</h3>
                 </a>

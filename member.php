@@ -7,25 +7,24 @@ include 'header.php';
 
 // (1) Sorting
 $fields = [
-    'id' => 'Id',
+    'userID' => 'Id',
     'username' => 'Username',
     'fullname' => 'Full Name',
     'email' => 'Email',
-    'dateCreated' => 'Date Created',
-    'birthday' => 'Birthday',
     'photo' => 'Photo',
     'status' => 'Status',
     'Action'
 ];
 
 $sort = req('sort');
-key_exists($sort, $fields) || $sort = 'id';
+key_exists($sort, $fields) || $sort = 'userID';
 
 $dir = req('dir');
 in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 
 // (2) Paging
 $page = req('page', 1);
+
 
 // (3) Searching
 $search = req('search');

@@ -12,6 +12,7 @@ if (!isset($_GET['id'])) {
 
 $adminId = $_GET['id'];
 $username = $_GET['username'];
+$role = $_GET['role'];
 
 ?>
 
@@ -22,6 +23,7 @@ $username = $_GET['username'];
 
 <form id="resetPasswordForm" method="POST">
     <?php html_hidden('id', htmlspecialchars($adminId)); ?>
+    <?php html_hidden('role', htmlspecialchars($role)); ?>
 
     <?php
     html_password1('newPassword', 'password', 'New Password', 'pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters" required');

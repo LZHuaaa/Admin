@@ -1,5 +1,3 @@
-
-
 <?php
 require 'base.php';
 
@@ -9,18 +7,18 @@ include 'header.php';
 
 // (1) Sorting
 $fields = [
-    'id'         => 'Id',
-    'username'       => 'Name',
-    'email' =>'Email',
+    'userID'         => 'Id',
+    'username'       => 'Username',
+    'fullname' => 'Full Name',
+    'email' => 'Email',
     'role' => 'Role',
     'status' => 'Status',
-    'last_login' => 'Last Login',
     'photo' => 'Photo',
     'Action'
 ];
 
 $sort = req('sort');
-key_exists($sort, $fields) || $sort = 'id';
+key_exists($sort, $fields) || $sort = 'userID';
 
 $dir = req('dir');
 in_array($dir, ['asc', 'desc']) || $dir = 'asc';
@@ -30,7 +28,7 @@ $page = req('page', 1);
 
 require_once 'lib/SimplePager';
 
-$p = new SimplePager("SELECT * FROM admin ORDER BY $sort $dir", [], 10, $page);
+$p = new SimplePager("SELECT * FROM user Where role ='admin' ORDER BY $sort $dir", [], 10, $page);
 $arr = $p->result;
 
 // ----------------------------------------------------------------------------
@@ -43,13 +41,13 @@ $_title = 'Manage Admin';
 <p>
     <?= $p->count ?> of <?= $p->item_count ?> record(s) |
     Page <?= $p->page ?> of <?= $p->page_count ?>
-    
-   
+
+
 </p>
 
 
 
-<table class="table">
+<table class="table" style="font-size:15px;">
     <tr>
         <!-- TODO -->
         <?= table_headers($fields, $sort, $dir, "page=$page") ?>
@@ -57,17 +55,25 @@ $_title = 'Manage Admin';
 
     <?php foreach ($arr as $s) : ?>
         <tr>
-            <td><?= $s->id ?></td>
+            <td><?= $s->userID ?></td>
             <td><?= $s->username ?></td>
+            <td><?= $s->fullname ?></td>
             <td><?= $s->email ?></td>
             <td><?= $s->role ?></td>
             <td><?= $s->status ?></td>
-            <td><?= $s->last_login ?></td>
             <td><img src="images/<?= htmlspecialchars($s->photo) ?>" alt="Photo" style="width:100px;height:100px;"></td>
             <td>
-                <button class="btn btn-primary edit-btn" data-id="<?= $s->id ?> ">Edit</button>
-                <button class="btn btn-danger delete-btn" data-id="<?= $s->id ?>">Delete</button>
-                <button class="btn btn-warning reset-btn" data-id="<?= $s->id ?>" data-username="<?= htmlspecialchars($s->username) ?>">Reset Password</button>
+                <button class="btn btn-primary edit-btn" data-id="<?= $s->userID ?> ">Edit</button>
+
+                <button class="btn btn-warning reset-btn" data-id="<?= $s->userID ?>" data-username="<?= htmlspecialchars($s->username) ?>"  data-role="<?= htmlspecialchars($s->role) ?>">Reset Password</button>
+
+                <?php if ($s->status === 'Active') : ?>
+                    <button class="btn btn-block block-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>" data-username="<?= htmlspecialchars($s->username) ?>"  data-role="<?= htmlspecialchars($s->role) ?>">Block</button>
+                <?php else : ?>
+                    <button class="btn btn-unblock unblock-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>"  data-username="<?= htmlspecialchars($s->username) ?>"  data-role="<?= htmlspecialchars($s->role) ?>">Unblock</button>
+                <?php endif; ?>
+
+                <button class="btn btn-danger delete-btn" data-id="<?= $s->userID ?>">Delete</button>
             </td>
         </tr>
     <?php endforeach ?>

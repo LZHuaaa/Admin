@@ -5,8 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $role = $_POST['role'];
-    $status = $_POST['status'];
+    //$status = $_POST['status'];
     $currentPhoto = $_POST['photo']; // Existing photo in the database
 
     $f = get_file('image');
@@ -51,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else {
         // Update the database with the new data (or the same photo if not changed)
-        $stmt = $_db->prepare("UPDATE admin SET username = ?, email = ?, role = ?, status = ?, photo = ? WHERE id = ?");
-        if ($stmt->execute([$username, $email, $role, $status, $photo, $id])) {
+        $stmt = $_db->prepare("UPDATE user SET username = ?, email = ?,  photo = ? WHERE userid = ?");
+        if ($stmt->execute([$username, $email, $photo, $id])) {
             echo "Admin updated successfully.";
         } else {
             echo "Failed to update admin.";

@@ -3,14 +3,14 @@ require 'base.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
+    $fullname = $_POST['fullname'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Encrypt password
-    $role = $_POST['role'];
     $status = $_POST['status'];
     
 
     // Check if the username already exists (optional but good practice)
-    $checkStmt = $_db->prepare("SELECT COUNT(*) FROM admin WHERE username = ?");
+    $checkStmt = $_db->prepare("SELECT COUNT(*) FROM user WHERE role='admin' and username = ?");
     $checkStmt->execute([$username]);
     $existingAdminCount = $checkStmt->fetchColumn();
 
@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              temp('info', 'Photo uploaded successfully.');
  
              // Insert form data including the image name into the database
-             $stmt = $_db->prepare("INSERT INTO admin (username, email, password,role, status, photo) VALUES (?,?, ?, ?, ?, ?)");
-             $stmt->execute([$username, $email, $password, $role, $status, $newFileName]);
+             $stmt = $_db->prepare("INSERT INTO user (username,fullname, email, password,role, status, photo) VALUES (?,?,?, ?, ?, ?, ?)");
+             $stmt->execute([$username, $fullname, $email, $password,'Admin', $status, $newFileName]);
  
              echo "Admin added successfully.";
  

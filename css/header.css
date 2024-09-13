@@ -46,7 +46,7 @@ body{
     width: 100vw;
     height: 100vh;
     font-family: poppins, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     background : var(--color-background);
     user-select: none;
     overflow-x: hidden;
@@ -320,6 +320,21 @@ main{
 
     .btn-adding {
         background-color: var(--color-primary-variant);
+    }
+
+    .btn-block {
+        background-color: #17a2b8;
+    }
+    .btn-block:hover {
+        background-color: #138496;
+    }
+
+
+    .btn-unblock {
+        background-color: #28a745;
+    }
+    .btn-unblock:hover {
+        background-color: #218838;
     }
 
 

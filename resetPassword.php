@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $encryptedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
 
     // Update password in the database
-    $stmt = $_db->prepare("UPDATE admin SET password = ? WHERE id = ?");
+    $stmt = $_db->prepare("UPDATE user SET password = ? WHERE userid = ?");
     $stmt->execute([$encryptedPassword, $adminId]);
 
     if ($stmt->rowCount() > 0) {
