@@ -12,15 +12,13 @@ if (isset($_POST['id'])) {
     if ($result) {
         $photo = $result['photo'];
 
-        // Delete the record from the database
         $stmt = $_db->prepare("DELETE FROM user WHERE userID = ?");
         if ($stmt->execute([$id])) {
             echo "Success";
 
-            // Check if the photo exists and delete it from the folder
             $photoPath = "images/$photo";
             if (file_exists($photoPath)) {
-                unlink($photoPath); // Delete the file
+                unlink($photoPath); 
             }
         } else {
             echo "Error deleting record from database.";

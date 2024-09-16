@@ -50,7 +50,7 @@ require 'base.php';
     html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive']);
     html_file('image', 'Profile Image', 'accept="image/*" required'); ?>
 
-    <img id="imagePreview" src="/images/photo.jpg" alt="Image Preview" style="display:block;">
+    <img id="imagePreview" src="/images/photo.jpg" alt="Image Preview" style="display:block;width:150px;height:150px;">
 
     <?php html_submit('submitAddBtn', 'Add');  ?>
 

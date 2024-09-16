@@ -48,16 +48,16 @@ $p = new SimplePager($query, $params, 10, $page);
 $arr = $p->result;
 ?>
 
-<p>
+<!--<p>
     <?= $p->count ?> of <?= $p->item_count ?> record(s) |
     Page <?= $p->page ?> of <?= $p->page_count ?>
-</p>
+</p>-->
 
 <div style="font-size:13px;" class="testing">
 
     <table class="table">
         <tr> 
-            <th><input type="checkbox" id="select-all"> Select All &nbsp;</th>
+            <th><input type="checkbox" id="select-all"></th>
             <?= table_headers($fields, $sort, $dir, "page=$page&search=" . urlencode($search)) ?>
         </tr>
 
@@ -75,7 +75,7 @@ $arr = $p->result;
                 <td>
                     <button class="btn btn-primary edit-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>">Edit</button>
 
-                    <button class="btn btn-warning reset-btn" data-id="<?= $s->userID ?>" data-username="<?= htmlspecialchars($s->username) ?>">Reset Password</button>
+                    <button class="btn btn-warning reset-btn" data-id="<?= $s->userID ?>" data-username="<?= htmlspecialchars($s->username) ?>" data-role="<?= htmlspecialchars($s->role)?>">Reset Password</button>
 
                     <?php if ($s->status === 'Active') : ?>
                         <button class="btn btn-block block-member-btn" data-id="<?= htmlspecialchars($s->userID) ?>" data-username="<?= htmlspecialchars($s->username) ?>" data-role="<?= htmlspecialchars($s->role) ?>">Block</button>
@@ -94,7 +94,16 @@ $arr = $p->result;
 
 <br>
 
-<?= $p->html("sort=$sort&dir=$dir&search=" . urlencode($search)) ?>
+<div class="pagination-info">
+    <p>
+        <?= $p->count ?> of <?= $p->item_count ?> record(s) |
+        Page <?= $p->page ?> of <?= $p->page_count ?>
+    </p>
+
+    <div class="pagination-controls">
+        <?= $p->html("sort=$sort&dir=$dir") ?>
+    </div>
+</div>
 
 <script>
 $('#select-all').click(function(event) {

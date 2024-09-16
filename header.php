@@ -10,6 +10,7 @@
     <!--use google font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="js/header.js"></script>
 
@@ -21,25 +22,30 @@
             <div class="top">
                 <div class="logo">
                     <img src="images/profile-1.jpg" alt="">
-                    <h2>HAPPY<span class="danger"> FITNESS</span></h2>
+                    <h2>HAPPY FITNESS</h2>
                 </div>
+            </div>
 
-                <div class="close" id="close-btn">
-                    <span class="material-icons-sharp">close</span>
+            <div class="top">
+                <div class="logo">
+                    <img src="images/profile-1.jpg" alt="">
+                    <h2>Hi, Lee Zhi Hua</h2>
                 </div>
             </div>
 
             <div class="sidebar">
-                <a href="#">
+
+           
+                <a href="index.php">
                     <span class="material-icons-sharp">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>
 
                 <a href="admin.php">
-                <span class="material-icons-sharp">
-                    admin_panel_settings
-                </span>
-                <h3>Admin</h3>
+                    <span class="material-icons-sharp">
+                        admin_panel_settings
+                    </span>
+                    <h3>Admin</h3>
                 </a>
 
                 <a href="member.php">
@@ -47,7 +53,7 @@
                     <h3>Member</h3>
                 </a>
 
-                <a href="#">
+                <a href="order.php">
                     <span class="material-icons-sharp">receipt_long</span>
                     <h3>Orders</h3>
                 </a>
@@ -58,7 +64,7 @@
                 </a>
 
 
-                <a href="#">
+                <a href="product.php">
                     <span class="material-icons-sharp">inventory</span>
                     <h3>Products</h3>
                 </a>
@@ -68,14 +74,14 @@
                     <h3>Add Product</h3>
                 </a>
 
-                
+
 
                 <a href="#">
                     <span class="material-icons-sharp">insights</span>
                     <h3>Analytics</h3>
                 </a>
 
-    
+
 
                 <a href="#">
                     <span class="material-icons-sharp">report_gmailerrorred</span>
@@ -87,7 +93,7 @@
                     <h3>Settings</h3>
                 </a>
 
-                
+
 
                 <a href="#">
                     <span class="material-icons-sharp">logout</span>
@@ -99,21 +105,32 @@
 
 
         <main>
-            <h1><?= $_title ?? 'Untitled' ?></h1>
-            <br>
+            <div class="header-container">
+                <h1 class="page-header"><?= $_title ?? 'Untitled' ?></h1>
+                <br>
 
 
-            
 
-            <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const links = document.querySelectorAll('aside .sidebar a');
-            
-            links.forEach(link => {
-                link.addEventListener('click', function () {
-                    links.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
-    </script>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const links = document.querySelectorAll('aside .sidebar a');
+
+                        const activeLink = localStorage.getItem('activeLink');
+   
+                        if (activeLink) {
+                            document.querySelector(`aside .sidebar a[href="${activeLink}"]`).classList.add('active');
+                        }
+
+                        links.forEach(link => {
+                            link.addEventListener('click', function() {
+                           
+                                links.forEach(l => l.classList.remove('active'));
+                         
+                                this.classList.add('active');
+
+                                localStorage.setItem('activeLink', this.getAttribute('href'));
+                            });
+                        });
+                    });
+                </script>

@@ -1,4 +1,7 @@
-<link href="css/member.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/header.css">
+<link href="css/member.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/admin.js"></script>
 <?php
 require_once 'base.php'; // Use require_once to avoid multiple inclusions
 
@@ -30,15 +33,22 @@ $page = req('page', 1);
 $search = req('search');
 ?>
 
-<button style="font-size:15px;margin-bottom:20px;" class="btn btn-primary add-member-btn">Add Member</button>
-<button type="submit" class="btn btn-danger" id="batch-delete-btn">Delete Selected</button>
+<div class="button-container">
+    <button class="btn btn-primary add-member-btn">Add Member</button>
+    <button type="submit" class="btn btn-danger" id="batch-delete-btn" data-term="user">Delete Selected</button>
+</div>
+</div>
 
 
 
-<!-- Search Bar -->
+<form id="search-form" method="get" style="margin-bottom:10px;border:none;">
 
-<form id="search-form" method="get" style="margin-bottom:20px;">
-    <input type="text" name="search" placeholder="Search by username, full name, or email" value="<?= htmlspecialchars($search) ?>">
+    <div class="form-group" style="display: inline-block; margin-right: 10px;">
+        <label for="search">Search:</label>
+        <input type="text" style="border: 2px solid #007bff; padding: 5px; border-radius: 4px; width:450px;" name="search" id="search" class="form-control" value="<?= htmlspecialchars($search) ?>" placeholder="Search by username, full name, or email">
+    </div>
+
+    <!--<input type="text" name="search" placeholder="Search by username, full name, or email" value="<?= htmlspecialchars($search) ?>">-->
     <button type="submit" class="btn btn-primary">Search</button>
     <input type="hidden" name="sort" value="<?= htmlspecialchars($sort) ?>">
     <input type="hidden" name="dir" value="<?= htmlspecialchars($dir) ?>">
@@ -50,6 +60,36 @@ $search = req('search');
 
 <div id="edit-form-container" style="margin-top:40px;"></div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/admin.js"></script>
+<script>
+    $("#batch-delete-btn").click(function(event) {
+        event.preventDefault();
 
+        var term = $(this).data("term");
+        var selectedIds = $('input[name="' + term + 'ID[]"]:checked')
+            .map(function() {
+                return $(this).val();
+            })
+            .get();
+
+        if (selectedIds.length === 0) {
+            alert("Please select at least one item to delete.");
+            return;
+        }
+
+        $.ajax({
+            url: "batch_delete.php",
+            type: "POST",
+            data: {
+                term: term,
+                ids: selectedIds,
+            },
+            success: function(response) {
+                alert(response);
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert("An error occurred: " + error);
+            },
+        });
+    });
+</script>

@@ -74,7 +74,7 @@ function encode($value)
     return htmlentities($value);
 }
 
-// Generate <input type='text'>
+
 function html_text($key, $label, $attr = '')
 {
     $value = htmlspecialchars($GLOBALS[$key] ?? '', ENT_QUOTES);
@@ -93,8 +93,21 @@ function html_text2($key, $label, $value = '', $attr = '')
           </div>";
 }
 
+function html_textarea($name, $label, $value = '', $placeholder = '', $required = false, $rows = 4, $cols = 50)
+{
+    $requiredAttr = $required ? 'required' : '';
+    echo '
+    <div class="form-group">
+        <label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>
+        <textarea name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" 
+                  rows="' . intval($rows) . '" cols="' . intval($cols) . '" 
+                  placeholder="' . htmlspecialchars($placeholder) . '" ' . $requiredAttr . ' 
+                  class="form-control">' . htmlspecialchars($value) . '</textarea>
+    </div>';
+}
 
-//password
+
+
 function html_password($key, $label, $pattern = '', $title = '', $attr = '')
 {
     echo "<div class='form-group'>
@@ -111,7 +124,7 @@ function html_password1($id, $name, $label, $attr = '')
           </div>";
 }
 
-//email
+
 function html_email($key, $label, $title = '', $attr = '')
 {
     echo "<div class='form-group'>
@@ -128,7 +141,7 @@ function html_email2($key, $label, $value, $title = '', $attr = '')
             <input type='email' id='$key' name='$key'value='$value' title='$title' $attr class='form-control' required>
           </div>";
 }
-//birthday
+
 function html_birthdate($key, $label, $value, $title = '', $attr = '')
 {
     echo "<div class='form-group'>
@@ -139,7 +152,7 @@ function html_birthdate($key, $label, $value, $title = '', $attr = '')
 
 
 
-//dropdown
+
 function html_select($key, $label, $options = [], $selectedValue = '', $attr = '')
 {
     echo "<div class='form-group'>
@@ -154,8 +167,83 @@ function html_select($key, $label, $options = [], $selectedValue = '', $attr = '
     echo "</select></div>";
 }
 
+function html_select_category($name, $label, $options, $selected = '', $required = false)
+{
+    $requiredAttr = $required ? 'required' : '';
 
-//file upload
+    echo '
+    <div class="form-group">
+        <label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>
+        <select name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $requiredAttr . ' class="form-control">';
+
+    foreach ($options as $option) {
+        $value = htmlspecialchars($option['categoryid']);
+        $display = htmlspecialchars($option['categoryname']);
+        $isSelected = ($value == $selected) ? ' selected' : '';
+        echo '<option value="' . $value . '"' . $isSelected . '>' . $display . '</option>';
+    }
+
+    echo '
+        </select>
+    </div>';
+}
+
+
+function html_select_category2($name, $label, $options, $selected, $required = false)
+{
+    $requiredAttr = $required ? 'required' : '';
+
+    echo '
+    <div class="form-group">
+        <label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>
+        <select name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $requiredAttr . ' class="form-control">';
+
+    foreach ($options as $option) {
+        $value = htmlspecialchars($option['categoryID']);
+        $display = htmlspecialchars($option['categoryName']);
+        $isSelected = ($value == $selected) ? ' selected' : '';
+        echo '<option value="' . $value . '"' . $isSelected . '>' . $display . '</option>';
+    }
+
+    echo '
+        </select>
+    </div>';
+}
+
+function html_select_promotion($name, $label, $promotions, $selected = '', $required = false)
+{
+    $requiredAttr = $required ? 'required' : '';
+
+    echo '<div class="form-group">';
+    echo '<label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>';
+    echo '<select name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $requiredAttr . ' class="form-control">';
+    echo '<option value=" ">No Promotion</option>';
+    foreach ($promotions as $promo) {
+        $isSelected = ($promo['promotionid'] == $selected) ? ' selected' : '';
+        echo '<option value="' . htmlspecialchars($promo['promotionid']) . '"' . $isSelected . '>' . htmlspecialchars($promo['name']) . '</option>';
+    }
+    echo '</select>';
+    echo '</div>';
+}
+
+
+function html_select_promotion2($name, $label, $promotions, $selected, $required = false)
+{
+    $requiredAttr = $required ? 'required' : '';
+
+    echo '<div class="form-group">';
+    echo '<label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>';
+    echo '<select name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $requiredAttr . ' class="form-control">';
+    echo '<option value=" ">No Promotion</option>';
+    foreach ($promotions as $promo) {
+        $isSelected = ($promo['promotionID'] == $selected) ? ' selected' : '';
+        echo '<option value="' . htmlspecialchars($promo['promotionID']) . '"' . $isSelected . '>' . htmlspecialchars($promo['name']) . '</option>';
+    }
+    echo '</select>';
+    echo '</div>';
+}
+
+
 function html_file($key, $label, $value, $attr = '')
 {
     echo "<div class='form-group'>
@@ -165,15 +253,24 @@ function html_file($key, $label, $value, $attr = '')
 }
 
 
+function html_file_multiple($name, $label, $attributes = '')
+{
+    echo '
+    <div class="form-group">
+        <label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>
+        <input type="file" name="' . htmlspecialchars($name) . '[]" id="' . htmlspecialchars($name) . '" ' . $attributes . ' class="form-control">
+    </div>';
+}
 
-// Generate <input type='search'>
+
+
 function html_search($key, $attr = '')
 {
     $value = encode($GLOBALS[$key] ?? '');
     echo "<input type='search' id='$key' name='$key' value='$value' $attr>";
 }
 
-// Generate <input type='radio'> list
+
 function html_radios($key, $items, $br = false)
 {
     $value = encode($GLOBALS[$key] ?? '');
@@ -189,8 +286,6 @@ function html_radios($key, $items, $br = false)
 }
 
 
-
-// Generate table headers <th>
 function table_headers($fields, $sort, $dir, $href = '')
 {
     foreach ($fields as $k => $v) {
@@ -206,7 +301,77 @@ function table_headers($fields, $sort, $dir, $href = '')
     }
 }
 
-//hidden
+function html_select_size_type()
+{
+    echo '
+    <div class="form-group">
+    <label for="sizeType">Select Size Type:</label>
+    <select id="sizeType" name="sizeType" onchange="showSizes()" style="border: 1px solid black; padding: 5px; border-radius: 4px; width:200px;">
+        <option value="">--Select Size Type--</option>
+        <option value="no_size">No Size</option>
+        <option value="standard">Standard Sizes (Clothes)</option>
+        <option value="shoe">Shoe Sizes (UK)</option>
+    </select>
+    </div>
+
+<div class="form-group">
+    <div id="standardSizes" style="display:none;">
+        <label>Select Standard Sizes:</label>
+        <input type="checkbox" name="sizes[]" value="S"> S
+        <input type="checkbox" name="sizes[]" value="M"> M
+        <input type="checkbox" name="sizes[]" value="L"> L
+        <input type="checkbox" name="sizes[]" value="XL"> XL
+    </div>
+    </div>
+
+    <div class="form-group">
+    <div id="shoeSizes" style="display:none;">
+        <label>Select Shoe Sizes (UK):</label>
+        <input type="checkbox" name="sizes[]" value="5"> UK 5
+        <input type="checkbox" name="sizes[]" value="6"> UK 6
+        <input type="checkbox" name="sizes[]" value="7"> UK 7
+        <input type="checkbox" name="sizes[]" value="8"> UK 8
+        <input type="checkbox" name="sizes[]" value="9"> UK 9
+    </div>
+    </div>
+    ';
+}
+
+function html_size_selector($productSizes = [])
+{
+    echo'  <div class="form-group">';
+    echo '<label for="sizeType">Select Size Type:</label>';
+    echo '<select id="sizeType" name="sizeType" onchange="showSizes()" style="border: 1px solid black; padding: 5px; border-radius: 4px; width:200px;">';
+    echo '<option value="">--Select Size Type--</option>';
+    echo '<option value="standard">Standard Sizes (Clothes)</option>';
+    echo '<option value="shoe">Shoe Sizes (UK)</option>';
+    echo '<option value="none">No Size</option>';
+    echo '</select>';
+    echo '</div>';
+
+    echo ' <div class="form-group">';
+    echo '<div id="standardSizes" style="display:none;">';
+    echo '<label>Select Standard Sizes:</label>';
+    echo '<input type="checkbox" name="sizes[]" value="S" ' . (in_array('S', $productSizes) ? 'checked' : '') . '> S ';
+    echo '<input type="checkbox" name="sizes[]" value="M" ' . (in_array('M', $productSizes) ? 'checked' : '') . '> M ';
+    echo '<input type="checkbox" name="sizes[]" value="L" ' . (in_array('L', $productSizes) ? 'checked' : '') . '> L ';
+    echo '<input type="checkbox" name="sizes[]" value="XL" ' . (in_array('XL', $productSizes) ? 'checked' : '') . '> XL ';
+    echo '</div>';
+    echo '</div>';
+
+    echo ' <div class="form-group">';
+    echo '<div id="shoeSizes" style="display:none;">';
+    echo '<label>Select Shoe Sizes (UK):</label>';
+    echo '<input type="checkbox" name="sizes[]" value="5" ' . (in_array('5', $productSizes) ? 'checked' : '') . '> UK 5 ';
+    echo '<input type="checkbox" name="sizes[]" value="6" ' . (in_array('6', $productSizes) ? 'checked' : '') . '> UK 6 ';
+    echo '<input type="checkbox" name="sizes[]" value="7" ' . (in_array('7', $productSizes) ? 'checked' : '') . '> UK 7 ';
+    echo '<input type="checkbox" name="sizes[]" value="8" ' . (in_array('8', $productSizes) ? 'checked' : '') . '> UK 8 ';
+    echo '<input type="checkbox" name="sizes[]" value="9" ' . (in_array('9', $productSizes) ? 'checked' : '') . '> UK 9 ';
+    echo '</div>';
+    echo '</div>';
+}
+
+
 function html_hidden($key, $value)
 {
     $value = htmlspecialchars($value, ENT_QUOTES);
@@ -215,7 +380,8 @@ function html_hidden($key, $value)
 //submit
 function html_submit($id, $value, $class = 'btn-success')
 {
-    echo "<button type='submit' id='$id' class='$class'>$value</button>";
+
+    echo "<br> <button type='submit' id='$id' class='$class'>$value</button>";
 }
 
 
@@ -299,13 +465,38 @@ function save_photo($f, $folder, $width = 200, $height = 200)
     return $photo;
 }
 
-function html_number($key, $min = '', $max = '', $step = '', $attr = '')
+function html_number($name, $label, $attributes = '')
 {
-    $value = encode($GLOBALS[$key] ?? '');
-    echo "<input type='number' id='$key' name='$key' value='$value'
-                 min='$min' max='$max' step='$step' $attr>";
+    echo '
+    <div class="form-group">
+        <label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>
+        <input type="number" name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $attributes . ' class="form-control">
+    </div>';
 }
 
+function html_textarea2($name, $label, $value = '', $attributes = '')
+{
+    echo '<div class="form-group">';
+    echo '<label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>';
+    echo '<textarea name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" ' . $attributes . ' class="form-control">' . htmlspecialchars($value) . '</textarea>';
+    echo '</div>';
+}
+
+// Function to generate a number input
+function html_number2($name, $label, $value = '', $attributes = '')
+{
+    echo '<div class="form-group">';
+    echo '<label for="' . htmlspecialchars($name) . '">' . htmlspecialchars($label) . '</label>';
+    echo '<input type="number" name="' . htmlspecialchars($name) . '" id="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" ' . $attributes . ' class="form-control">';
+    echo '</div>';
+}
+
+function html_file_video($name, $label, $attributes = '') {
+    echo '<div class="form-group">';
+    echo '<label for="' . $name . '">' . $label . '</label>';
+    echo '<input type="file" name="' . $name . '" id="' . $name . '" ' . $attributes . ' class="form-control">';
+    echo '</div>';
+}
 
 
 // Is money?

@@ -32,15 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Use SimpleImage to create a thumbnail
             require_once 'lib/SimpleImage.php';
             $img = new SimpleImage();
-            $img->fromFile($destination) // Load the uploaded image
-                ->thumbnail(200, 200) // Create a 200x200 thumbnail
-                ->toFile("images/$newFileName", 'image/jpeg'); // Save the thumbnail
+            $img->fromFile($destination) 
+                ->thumbnail(200, 200) 
+                ->toFile("images/$newFileName", 'image/jpeg'); 
 
             temp('info', 'Photo uploaded successfully.');
 
-            // Insert form data including the image name into the database
             $stmt = $_db->prepare("INSERT INTO user (username, fullname, email, role, password, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$username, $fullname, $email,'customer', $password,$status, $newFileName]);
+            $stmt->execute([$username, $fullname, $email,'member', $password,$status, $newFileName]);
 
             echo "Member added successfully.";
 

@@ -4,7 +4,8 @@
     padding: 20px;
     border: 1px solid black;
     border-radius: 4px;
-    width:40%;
+    margin-left:150px;
+    width:70%;
     font-size: 16px;
 }
 
@@ -44,12 +45,45 @@
     color: #fff;
     padding: 0.5em 1em;
     border-radius:4px;
-    margin-left:400px;
+    margin-left:775px;
 }
 
 .btn-close:hover {
     background-color: #bc2525;
 }
+
+#imagePreviewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#imagePreviewContainer img {
+    width: 100px;
+    height: 100px;
+}
+
+#imagePreviewContainer2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#imagePreviewContainer2 img {
+    width: 100px;
+    height: 100px;
+}
+
+#hover-image-container {
+    position: absolute;
+    display: none;
+}
+
+.product-row:hover #hover-image-container {
+    display: block;
+}
+
+
 
 
 

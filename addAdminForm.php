@@ -49,7 +49,8 @@ require 'base.php';
     html_password('confirmPassword', 'Confirm Password', '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}', 'Must contain at least one number and one uppercase and lowercase letter, and at least 7 or more characters', 'required');
     html_select('status', 'Status', ['Active' => 'Active', 'Inactive' => 'Inactive']);
     html_file('image', 'Profile Image', 'accept="image/*" required'); ?>
-    <img id="imagePreview" src="/images/photo.jpg" alt="Image Preview" style="display:block;">
+    <img id="imagePreview" src="/images/photo.jpg" alt="Image Preview" style="display:block;width:150px;height:150px;">
+
     <?php html_submit('submitAddBtn', 'Add');
     ?>
 

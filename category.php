@@ -30,22 +30,17 @@ $arr = $p->result;
 $_title = 'Manage Category';
 ?>
 
-<button style="font-size:15px;margin-bottom:20px;" class="btn btn-primary add-category-btn">Add Category</button>
-<button type="submit" class="btn btn-danger" id="batch-delete-category-btn">Delete Selected</button>
-
-<p>
-    <?= $p->count ?> of <?= $p->item_count ?> record(s) |
-    Page <?= $p->page ?> of <?= $p->page_count ?>
-
-
-</p>
-
+<div class="button-container">
+<button class="btn btn-primary add-category-btn">Add Category</button>
+<button type="submit" class="btn btn-danger" id="batch-delete-btn" data-term="category">Delete Selected</button>
+</div>
+</div>
 
 
 <table class="table" style="font-size:15px;">
     <tr>
         <!-- TODO -->
-        <th><input type="checkbox" id="select-all"> Select All &nbsp;</th>
+        <th><input type="checkbox" id="select-all"></th>
         <?= table_headers($fields, $sort, $dir, "page=$page") ?>
     </tr>
 
@@ -68,8 +63,16 @@ $_title = 'Manage Category';
 
 <br>
 
-<!-- TODO -->
-<?= $p->html("sort=$sort&dir=$dir") ?>
+<div class="pagination-info">
+    <p>
+        <?= $p->count ?> of <?= $p->item_count ?> record(s) |
+        Page <?= $p->page ?> of <?= $p->page_count ?>
+    </p>
+
+    <div class="pagination-controls">
+        <?= $p->html("sort=$sort&dir=$dir") ?>
+    </div>
+</div>
 
 <!-- This div will hold the edit form -->
 <div id="edit-form-container" style="margin-top:40px;"></div>
