@@ -1,38 +1,4 @@
-
-
-
 //---------------------------------------------------------Admin Part-----------------------------------------------------------------------------------
-
-/*$("#batch-delete-btn").click(function (event) {
-  event.preventDefault(); // Prevent the form from submitting the traditional way
-
-  // Collect selected IDs
-  var selectedIds = [];
-  $('input[name="userID[]"]:checked').each(function () {
-    selectedIds.push(this.value);
-  });
-
-  if (selectedIds.length === 0) {
-    alert("Please select at least one item to delete.");
-    return;
-  }
-
-  if (confirm("Are you sure you want to delete the selected items?")) {
-    $.ajax({
-      url: "batch_delete.php",
-      type: "POST",
-      data: { ids: selectedIds },
-      success: function (response) {
-        alert(response);
-        location.reload();
-        // window.location.href = "admin.php";
-      },
-      error: function () {
-        alert("An error occurred while processing your request.");
-      },
-    });
-  }
-});*/
 
 $("#batch-delete-btn").click(function (event) {
   event.preventDefault();
@@ -49,25 +15,28 @@ $("#batch-delete-btn").click(function (event) {
     return;
   }
 
-  $.ajax({
-    url: "batch_delete.php",
-    type: "POST",
-    data: {
-      term: term,
-      ids: selectedIds,
-    },
-    success: function (response) {
-      alert(response);
-      location.reload();
-    },
-    error: function (xhr, status, error) {
-      alert("An error occurred: " + error);
-    },
-  });
+  var confirmDelete = confirm("Are you sure you want to delete them?");
+
+  if (confirmDelete) {
+    $.ajax({
+      url: "batch_delete.php",
+      type: "POST",
+      data: {
+        term: term,
+        ids: selectedIds,
+      },
+      success: function (response) {
+        alert(response);
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        alert("An error occurred: " + error);
+      },
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Select/Deselect all checkboxes
   const selectAllCheckbox = document.getElementById("select-all");
   const checkboxes = document.querySelectorAll('input[name="userID[]"]');
 
@@ -198,12 +167,7 @@ $(document).ready(function () {
           success: function (response) {
             alert(response);
             $("#edit-form-container").empty();
-
-            if (role === "admin") {
-              window.location.href = "admin.php";
-            } else {
-              window.location.href = "member.php";
-            }
+            location.reload();
           },
           error: function () {
             alert("Error resetting password.");
@@ -215,7 +179,7 @@ $(document).ready(function () {
   // Click add button then jumpt to Add Admin Form
   $(document).on("click", ".add-btn", function () {
     $.ajax({
-      url: "../addAdminForm.php",
+      url: "addAdminForm.php",
       type: "GET",
       success: function (response) {
         $("#edit-form-container").html(response);
@@ -232,7 +196,7 @@ $(document).ready(function () {
     var adminId = $(this).data("id");
 
     $.ajax({
-      url: "../editAdminForm.php",
+      url: "editAdminForm.php",
       type: "GET",
       data: { id: adminId },
       success: function (response) {
@@ -246,7 +210,7 @@ $(document).ready(function () {
   });
 
   // click reset button then jump to Reset Password Form
-   $(document).on("click", ".reset-btn", function () {
+  $(document).on("click", ".reset-btn", function () {
     var adminId = $(this).data("id");
     var username = $(this).data("username");
     var role = $(this).data("role");
@@ -362,7 +326,7 @@ $(document).ready(function () {
     var userId = $(this).data("id");
 
     $.ajax({
-      url: "../editMemberForm.php",
+      url: "editMemberForm.php",
       type: "GET",
       data: { id: userId },
       success: function (response) {
@@ -378,7 +342,7 @@ $(document).ready(function () {
   //click add button then jump to Add Member Form
   $(document).on("click", ".add-member-btn", function () {
     $.ajax({
-      url: "../addMemberForm.php",
+      url: "addMemberForm.php",
       type: "GET",
       success: function (response) {
         $("#edit-form-container").html(response);
@@ -393,6 +357,7 @@ $(document).ready(function () {
   //click delete button then jump to Delete member
   $(document).on("click", ".delete-member-btn", function () {
     var userId = $(this).data("id");
+
     var confirmDelete = confirm("Are you sure you want to delete this member?");
 
     if (confirmDelete) {
@@ -495,11 +460,7 @@ $(document).ready(function () {
           data: { action: action, id: id, username: username },
           success: function (response) {
             alert(response);
-            if (role === "admin") {
-              window.location.href = "admin.php";
-            } else {
-              window.location.href = "member.php";
-            }
+            location.reload();
           },
           error: function () {
             alert("An error occurred.");
@@ -563,7 +524,7 @@ $(document).ready(function () {
   // Click add button then jum  to Add Category Form
   $(document).on("click", ".add-category-btn", function () {
     $.ajax({
-      url: "../addCategoryForm.php",
+      url: "addCategoryForm.php",
       type: "GET",
       success: function (response) {
         $("#edit-form-container").html(response);
@@ -580,7 +541,7 @@ $(document).ready(function () {
     var Id = $(this).data("id");
 
     $.ajax({
-      url: "../editCategoryForm.php",
+      url: "editCategoryForm.php",
       type: "GET",
       data: { id: Id },
       success: function (response) {
@@ -651,23 +612,21 @@ $(document).ready(function () {
 //------------------------------------------------------Product part----------------------------------------------------------------------------------------------------
 
 function showSizes() {
-    var sizeType = document.getElementById("sizeType").value;
-    var standardSizes = document.getElementById("standardSizes");
-    var shoeSizes = document.getElementById("shoeSizes");
-    
-    if (sizeType === "standard") {
-        standardSizes.style.display = "block";
-        shoeSizes.style.display = "none";
-    } else if (sizeType === "shoe") {
-        standardSizes.style.display = "none";
-        shoeSizes.style.display = "block";
-    } else {
-        standardSizes.style.display = "none";
-        shoeSizes.style.display = "none";
-    }
+  var sizeType = document.getElementById("sizeType").value;
+  var standardSizes = document.getElementById("standardSizes");
+  var shoeSizes = document.getElementById("shoeSizes");
+
+  if (sizeType === "standard") {
+    standardSizes.style.display = "block";
+    shoeSizes.style.display = "none";
+  } else if (sizeType === "shoe") {
+    standardSizes.style.display = "none";
+    shoeSizes.style.display = "block";
+  } else {
+    standardSizes.style.display = "none";
+    shoeSizes.style.display = "none";
+  }
 }
-
-
 
 $('input[name="productImages[]"]').on("change", function () {
   $("#imagePreviewContainer").html("");
@@ -687,23 +646,22 @@ $('input[name="productImages[]"]').on("change", function () {
   }
 });
 
-$('#productVideo').on('change', function() {
+$("#productVideo").on("change", function () {
   var file = this.files[0];
-  var videoContainer = $('#videoPreviewContainer');
-  videoContainer.html('');
+  var videoContainer = $("#videoPreviewContainer");
+  videoContainer.html("");
 
-  if (file && file.type.match('video.*')) {
-      var reader = new FileReader();
+  if (file && file.type.match("video.*")) {
+    var reader = new FileReader();
 
-      reader.onload = function(e) {
-          var video = $('<video controls>').attr('src', e.target.result)
-              .css({
-                  'width': '300px'
-              });
-          videoContainer.append(video);
-      };
+    reader.onload = function (e) {
+      var video = $("<video controls>").attr("src", e.target.result).css({
+        width: "300px",
+      });
+      videoContainer.append(video);
+    };
 
-      reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
   }
 });
 
@@ -750,7 +708,6 @@ $(document).on("click", ".delete-product-btn", function () {
       success: function (response) {
         alert(response);
         window.location.href = "product.php";
-        //loadAdminList();
       },
       error: function () {
         alert("Error deleting data.");
@@ -772,9 +729,9 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: function (response) {
-        alert("Response: " + response); // Log the response
+        alert(response);
         $("#imagePreviewContainer").html("");
-        location.reload(); // Reload the page to reflect changes
+        location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         alert("Error occurred: " + textStatus + ", " + errorThrown);
@@ -871,3 +828,164 @@ $(document).ready(function () {
     $("#batchUpdateForm").attr("action", "batchUpdateOrders.php").submit();
   });
 });
+
+//-------------------------------------------------------------Promotion Part---------------------------------------------------------------------------
+
+$(document).ready(function () {
+  $("#select-all-promotion").click(function () {
+    $('input[name="promotionID[]"]').prop("checked", this.checked);
+  });
+
+  $("#batch-update-promotion-status").click(function () {
+    $("#batch-update-promotion-section").toggle();
+  });
+
+  $("#batch-update-promotion-submit").click(function (e) {
+    e.preventDefault();
+
+    if ($('input[name="promotionID[]"]:checked').length === 0) {
+      alert("Please select at least one promotion to update.");
+      return;
+    }
+
+    let status = $("#new-status").val();
+    if (!status) {
+      alert("Please select a new status.");
+      return;
+    }
+
+    $("<input>")
+      .attr({
+        type: "hidden",
+        name: "newStatus",
+        value: status,
+      })
+      .appendTo("#batchUpdatePromotionForm");
+
+    $("#batchUpdatePromotionForm")
+      .attr("action", "batchUpdatePromotions.php")
+      .submit();
+  });
+});
+
+$(document).on("click", ".add-promotion-btn", function () {
+  $.ajax({
+    url: "addPromotionForm.php",
+    type: "GET",
+    success: function (response) {
+      $("#edit-form-container").html(response);
+      attachPromotionHandlers();
+    },
+    error: function () {
+      alert("Error loading the adding form.");
+    },
+  });
+});
+
+$(document).on("click", ".edit-promotion-btn", function () {
+  var promotionId = $(this).data("id");
+
+  $.ajax({
+    url: "editPromotionForm.php",
+    type: "GET",
+    data: { id: promotionId },
+    success: function (response) {
+      $("#edit-form-container").html(response);
+      //attachPromotionHandlers();
+    },
+    error: function () {
+      alert("Error loading the edit form.");
+    },
+  });
+});
+
+$(document).on("click", ".delete-promotion-btn", function () {
+  var promotionId = $(this).data("id");
+  var confirmDelete = confirm(
+    "Are you sure you want to delete this promotion?"
+  );
+
+  if (confirmDelete) {
+    $.ajax({
+      url: "deletePromotion.php",
+      type: "POST",
+      data: { id: promotionId },
+      success: function (response) {
+        alert(response);
+        location.reload();
+      },
+      error: function () {
+        alert("Error deleting data.");
+      },
+    });
+  }
+});
+
+
+
+function attachPromotionHandlers() {
+  $(document).on("submit", "#editPromotionForm", function (event) {
+    console.log("Form submitted");
+    event.preventDefault();
+    var startDate = new Date($("#startDate").val());
+    var endDate = new Date($("#endDate").val());
+  
+    if (endDate < startDate) {
+      alert("Error: End date cannot be earlier than start date.");
+      return false;
+    }
+  
+    var formData = new FormData(this);
+    var confirmUpdate = confirm("Are you sure you want to update?");
+    if (confirmUpdate) {
+      $.ajax({
+        url: "updatePromotion.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          alert(response);
+          $("#edit-form-container").empty();
+          location.reload();
+        },
+        error: function () {
+          alert("Error updating data.");
+        },
+      });
+    }
+  });
+
+  $("#addPromotionForm").on("submit", function (event) {
+    event.preventDefault();
+
+    var startDate = new Date($("#startDate").val());
+    var endDate = new Date($("#endDate").val());
+
+    if (endDate < startDate) {
+      alert("Error: End date cannot be earlier than start date.");
+      return false;
+    }
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      url: "addPromotion.php",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        alert(response);
+        $("#addPromotionForm")[0].reset();
+        $("#imagePreviewContainer").html("");
+        location.reload();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Error occurred: " + textStatus);
+      },
+    });
+  });
+
+  
+}

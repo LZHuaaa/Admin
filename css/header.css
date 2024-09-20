@@ -142,13 +142,20 @@ aside .top{
 }
 
 aside .logo{
-    display: flex;
-    gap: 0.8rem;
+    
 }
 
 aside .logo img{
-    width: 2rem;
-    height: 2rem;
+
+}
+
+aside .logo1{
+    display: flex;
+    gap: 0.8rem;
+}
+aside .logo1 img{
+    width:2rem;
+    height:2rem;  
 }
 
 aside .close{
