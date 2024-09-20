@@ -39,9 +39,10 @@ if (isset($_POST['id'])) {
         $stmt->execute([$productID]);
 
         $stmt = $_db->prepare("DELETE FROM order_detail WHERE productID = ?");
-        $stmt->execute([$productID]);    
+        $stmt->execute([$productID]);
 
-        $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
+
+        /* $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
         $stmt->execute([$productID]);
         $video = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -54,7 +55,7 @@ if (isset($_POST['id'])) {
                     unlink($videoPath);
                 }
             }
-        }
+        }*/
 
         $stmt = $_db->prepare("DELETE FROM product_video WHERE productID = ?");
         $stmt->execute([$productID]);

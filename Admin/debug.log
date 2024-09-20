@@ -3618,3 +3618,674 @@ Array
         )
 
 )
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => 
+    [sizes] => Array
+        (
+            [0] => UK6
+            [1] => UK7
+            [2] => UK8
+            [3] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [productVideo] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => shoe
+    [sizes] => Array
+        (
+            [0] => UK8
+            [1] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [productVideo] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => shoe
+    [sizes] => Array
+        (
+            [0] => UK8
+            [1] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [productVideo] => Array
+        (
+            [name] => 
+            [full_path] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => 
+    [sizes] => Array
+        (
+            [0] => UK8
+            [1] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=J8ziFIhkUpLIM30V
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => 
+    [sizes] => Array
+        (
+            [0] => UK8
+            [1] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=J8ziFIhkUpLIM30V
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 2
+    [productName] => Dumbbell Set
+    [productDescription] => Set of 5 adjustable dumbbells
+    [sizeType] => 
+    [sizes] => Array
+        (
+            [0] => UK8
+            [1] => UK9
+        )
+
+    [price] => 299.99
+    [stockQuantity] => 40
+    [soldQuantity] => 2
+    [category] => 2
+    [promotion] =>  
+    [productVideoLink] => https://www.youtube.com/embed/1bPDx4EyWe8?si=D3zCF8eCNN8NXMa_
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => 
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=KH5xHzAulORljGAr
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => 
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=KH5xHzAulORljGAr
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => 
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=KH5xHzAulORljGAr
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => 
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://youtu.be/1bPDx4EyWe8?si=KH5xHzAulORljGAr
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => 
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://www.youtube.com/embed/1bPDx4EyWe8?si=eCg42mTBV1vBwmNu
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 39
+    [productName] => Treadmill
+    [productDescription] => High-performance treadmill
+    [sizeType] => standard
+    [sizes] => Array
+        (
+            [0] => M
+            [1] => L
+        )
+
+    [price] => 1299.99
+    [stockQuantity] => 50
+    [soldQuantity] => 30
+    [category] => 1
+    [promotion] => 13
+    [productVideoLink] => https://www.youtube.com/embed/1bPDx4EyWe8?si=eCg42mTBV1vBwmNu
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)

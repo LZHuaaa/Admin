@@ -157,17 +157,19 @@ include 'header.php';
         <p>No photos available for this product.</p>
     <?php endif; ?>
 
-    <?php if (!empty($productVideo)): ?>
-        <div class="product-video">
-            <h2>Product Video</h2>
-            <video width="400" controls>
-                <source src="../videos/<?= htmlspecialchars($productVideo->video_link) ?>" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <?php if (!empty($productVideo)): ?>
+                <div class="product-video">
+                    <h2>Product Video</h2>
+                    <p style="margin-top:5px;"><a href="<?= htmlspecialchars($productVideo->video_link) ?>" target="_blank"><?= htmlspecialchars($productVideo->video_link) ?></a></p>
+            </div>
+                        <iframe width="400" height="300" src="<?= htmlspecialchars($productVideo->video_link) ?>" frameborder="0" allowfullscreen></iframe></p>
+             
+            <?php else: ?>
+                <p>No video available for this product.</p>
+            <?php endif; ?>
         </div>
-    <?php else: ?>
-        <p>No video available for this product.</p>
-    <?php endif; ?>
+
+
 
     <a href="product.php" class="back-btn">Back to Products</a>
 </div>

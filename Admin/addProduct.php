@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryID = $_POST['category'];
     $promotionID = $_POST['promotion'];
     $sizes = isset($_POST['sizes']) ? $_POST['sizes'] : [];
+    $productVideoLink = $_POST['productVideoLink']; 
 
     if ($promotionID === ' ') {
         $promotionID = NULL;  
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $videoPath = '';
+       /* $videoPath = '';
         if (isset($_FILES['productVideo']) && $_FILES['productVideo']['error'] === UPLOAD_ERR_OK) {
             $videoTmpPath = $_FILES['productVideo']['tmp_name'];
             $videoName = $_FILES['productVideo']['name'];
@@ -40,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!move_uploaded_file($videoTmpPath, $videoPath)) {
                 throw new Exception('Failed to upload video.');
             }
-        }
+        }*/
 
 
         $stmt = $_db->prepare("
@@ -72,12 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        if (!empty($videoPath)) {
+
+        if (!empty($productVideoLink)) {
             $stmt = $_db->prepare("
-            INSERT INTO product_video (productID, video_link) 
-            VALUES (?, ?)
+                INSERT INTO product_video (productID, video_link) 
+                VALUES (?, ?)
             ");
-            $stmt->execute([$productID, basename($videoPath)]);
+            $stmt->execute([$productID, $productVideoLink]);
         }
 
 

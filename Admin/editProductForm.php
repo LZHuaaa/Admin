@@ -28,6 +28,10 @@ if (isset($_GET['id'])) {
             $stmt = $_db->prepare("SELECT sizeName FROM product_size WHERE productID = ?");
             $stmt->execute([$id]);
             $productSizes = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+            $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
+            $stmt->execute([$id]);
+            $video_link = $stmt->fetchColumn();
         }
 ?>
 
@@ -43,7 +47,7 @@ if (isset($_GET['id'])) {
             html_number2('soldQuantity', 'Sold Quantity', $product->soldQuantity, 'min="0" required');
             html_select_category2('category', 'Category', $categories, $product->categoryID, true);
             html_select_promotion2('promotion', 'Promotion', $promotions, $product->promotionID, true);
-            html_file_multiple('productImages', 'Product Images', 'accept="image/*" multiple');?>
+            html_file_multiple('productImages', 'Product Images', 'accept="image/*" multiple'); ?>
 
 
             <div id="imagePreviewContainer2">
@@ -58,9 +62,14 @@ if (isset($_GET['id'])) {
                 ?>
             </div>
 
-            <?php html_file_video('productVideo', 'Product Video', 'accept="video/*"'); ?>
 
-            <div id="videoPreviewContainer">
+            <?php
+            html_youtube_link('productVideoLink', 'YouTube Video Link', $video_link, true);
+
+            //html_file_video('productVideo', 'Product Video', 'accept="video/*"'); 
+            ?>
+
+           <!-- <div id="videoPreviewContainer">
                 <?php
                 $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
                 $stmt->execute([$id]);
@@ -75,7 +84,7 @@ if (isset($_GET['id'])) {
                     echo '<p>No video available for this product.</p>';
                 }
                 ?>
-            </div>
+            </div>-->
 
             <?php html_submit('submitBtn', 'Update Product'); ?>
         </form>

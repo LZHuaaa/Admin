@@ -498,12 +498,35 @@ function html_number2($name, $label, $value = '', $attributes = '')
     echo '</div>';
 }
 
-function html_file_video($name, $label, $attributes = '') {
+function html_youtube_link($name, $label, $url, $required = false) {
+    $requiredAttr = $required ? 'required' : '';
+    
+    echo "
+    <div class='form-group'>
+        <label for='$name'>$label</label>
+        <input type='url' name='$name' id='$name' value='" . htmlspecialchars($url) . "'
+               placeholder='https://youtube/...'
+               class='form-control' $requiredAttr>
+    </div>
+    ";
+    
+    if (!empty($url)) { 
+        echo "
+        <div class='youtube-embed'>
+            <iframe width='400' height='300' src='" . htmlspecialchars($url) . "' frameborder='0' allowfullscreen></iframe>
+        </div>
+        ";
+    }
+}
+
+
+
+/*function html_file_video($name, $label, $attributes = '') {
     echo '<div class="form-group">';
     echo '<label for="' . $name . '">' . $label . '</label>';
     echo '<input type="file" name="' . $name . '" id="' . $name . '" ' . $attributes . ' class="form-control">';
     echo '</div>';
-}
+}*/
 
 function html_date($name, $label, $attributes = '', $value = '') {
     

@@ -1,5 +1,4 @@
-<?php
-require 'base.php';
+<?php require 'base.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -14,13 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $soldQuantity = $_POST['soldQuantity'];
     $categoryID = $_POST['category'];
     $promotionID = $_POST['promotion'];
+    $productVideoLink = $_POST['productVideoLink'];  // Get the YouTube link
 
     if (trim($promotionID) === '') {
         $promotionID = NULL;
     }
 
     try {
-
+        // Update product details
         $stmt = $_db->prepare("
             UPDATE product
             SET productName = ?, productDesc = ?, price = ?, stockQuantity = ?, soldQuantity = ?, promotionID = ?, categoryID = ?
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ");
         $stmt->execute([$productName, $productDescription, $price, $stockQuantity, $soldQuantity, $promotionID, $categoryID, $productID]);
 
-
+        // Handle product images
         if (isset($_FILES['productImages']) && is_array($_FILES['productImages']['error'])) {
             $fileCount = count($_FILES['productImages']['name']);
             $newFilesUploaded = false;
@@ -41,11 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if ($newFilesUploaded) {
-
                 $stmt = $_db->prepare("SELECT photo_path FROM product_photo WHERE productID = ?");
                 $stmt->execute([$productID]);
                 $existingPhotos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
                 foreach ($existingPhotos as $photo) {
                     $filePath = '../images/' . $photo['photo_path'];
@@ -53,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         unlink($filePath);
                     }
                 }
-
 
                 $stmt = $_db->prepare("DELETE FROM product_photo WHERE productID = ?");
                 $stmt->execute([$productID]);
@@ -88,56 +85,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        // Handle product sizes
         if (isset($_POST['sizes']) && is_array($_POST['sizes'])) {
             $selectedSizes = $_POST['sizes'];
 
             $stmt = $_db->prepare("DELETE FROM product_size WHERE productID = ?");
             $stmt->execute([$productID]);
 
-
             $stmt = $_db->prepare("INSERT INTO product_size (productID, sizeName) VALUES (?, ?)");
-
             foreach ($selectedSizes as $sizeName) {
                 $stmt->execute([$productID, $sizeName]);
             }
         }
 
-        // Handle product video
-        if (isset($_FILES['productVideo']) && $_FILES['productVideo']['error'] === UPLOAD_ERR_OK) {
-
-            $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
+    
+        if (!empty($productVideoLink)) {
+            $stmt = $_db->prepare("DELETE FROM product_video WHERE productID = ?");
             $stmt->execute([$productID]);
-            $existingVideo = $stmt->fetchColumn();
 
-
-            if ($existingVideo) {
-                $videoFilePath = '../videos/' . $existingVideo;
-                if (file_exists($videoFilePath)) {
-                    unlink($videoFilePath);
-                }
-
-                $stmt = $_db->prepare("DELETE FROM product_video WHERE productID = ?");
-                $stmt->execute([$productID]);
-            }
-
-
-            $videoTmpPath = $_FILES['productVideo']['tmp_name'];
-            $videoFileName = $_FILES['productVideo']['name'];
-            $videoFilePath = '../videos/' . $videoFileName;
-
-            if (move_uploaded_file($videoTmpPath, $videoFilePath)) {
-
-                $stmt = $_db->prepare("INSERT INTO product_video (productID, video_link) 
-            VALUES (?, ?)");
-                $stmt->execute([$productID, $videoFileName]);
-            } else {
-                throw new Exception("Failed to move uploaded video: $videoFileName");
-            }
+            $stmt = $_db->prepare("INSERT INTO product_video (productID, video_link) 
+                VALUES (?, ?)");
+            $stmt->execute([$productID, $productVideoLink]);
         }
-
 
         echo "Product updated successfully.";
     } catch (Exception $e) {
         echo "Failed to update product: " . $e->getMessage();
     }
 }
+?>

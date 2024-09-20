@@ -146,9 +146,9 @@ function insertProducts($fileContent)
 {
     global $_db;
     foreach ($fileContent as $line) {
-        list($productName, $productID, $productDesc, $price, $stockQuantity, $soldQuantity, $promotionID, $categoryID) = explode('|', trim($line));
-        $stmt = $_db->prepare("INSERT INTO product (productName, productID, productDesc, price, stockQuantity, soldQuantity, promotionID, categoryID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$productName, $productID, $productDesc, $price, $stockQuantity, $soldQuantity, $promotionID, $categoryID]);
+        list($productName, $productDesc, $price, $stockQuantity, $soldQuantity, $promotionID, $categoryID) = explode('|', trim($line));
+        $stmt = $_db->prepare("INSERT INTO product (productName, productDesc, price, stockQuantity, soldQuantity, promotionID, categoryID) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$productName, $productDesc, $price, $stockQuantity, $soldQuantity, $promotionID, $categoryID]);
     }
 }
 

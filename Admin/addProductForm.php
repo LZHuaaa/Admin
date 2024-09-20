@@ -33,9 +33,10 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     html_file_multiple('productImages', 'Product Images', 'multiple accept="image/*" required'); ?>
     <div id="imagePreviewContainer"></div>
     <?php
-    html_file_video('productVideo', 'Product Video', 'accept="video/*"');
+   html_youtube_link('productVideoLink', 'YouTube Video Link','', true);
+
     ?>
 
-    <div id="videoPreviewContainer"></div>
+    <!--<div id="videoPreviewContainer"></div>-->
     <?php html_submit('submitAddBtn', 'Add Product'); ?>
 </form>

@@ -67,10 +67,6 @@ $salesTrendsStmt = $_db->query("
 $salesTrends = $salesTrendsStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<style>
-
-</style>
-
 </div>
 
 <div class="charts-container">

@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ids']) && isset($_POS
                 $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID IN ($idsString)");
                 $stmt->execute();
                 $videos = $stmt->fetchAll(PDO::FETCH_COLUMN);
-        
-        
+
+
 
                 $deleteStmt = $_db->prepare("
                     DELETE FROM product_photo WHERE productID IN ($idsString);
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ids']) && isset($_POS
                     DELETE FROM order_detail WHERE productID IN ($idsString);
                     DELETE FROM product_size WHERE productID IN ($idsString);
                     DELETE FROM product WHERE productID IN ($idsString);
-                    
+
                 ");
                 if ($deleteStmt->execute()) {
                     foreach ($photos as $photo) {
@@ -76,12 +76,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ids']) && isset($_POS
                         }
                     }
 
-                    foreach ($videos as $video) {
+                    /*foreach ($videos as $video) {
                         $videoPath = "../videos/$video";
                         if (file_exists($videoPath)) {
                             unlink($videoPath);
                         }
-                    }
+                    }*/
+                    
                     echo "Products deleted successfully.";
                 } else {
                     echo "Error deleting product records.";
