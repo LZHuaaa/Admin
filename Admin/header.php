@@ -49,7 +49,9 @@ if (isset($_SESSION['adminID'])) {
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../assests/logo/adminHappyFitness.png" alt="">
+                    
+                    <img src=" ../assests/logo/adminHappyFitness.png" alt="">
+                    
                     <!--<h2>HAPPY FITNESS</h2>-->
                 </div>
             </div>
@@ -58,7 +60,7 @@ if (isset($_SESSION['adminID'])) {
                 <div class="logo1">
 
                     <img src="<?= $profilePhoto ?>" alt="Profile Picture" style="width: 40px; height: 40px; border-radius:50%; ">
-                    <h2>Hi, <?= $username ?></h2> 
+                    <h2>Hi, <?= $username ?></h2>
                 </div>
             </div>
 

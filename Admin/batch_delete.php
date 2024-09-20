@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ids']) && isset($_POS
                             unlink($videoPath);
                         }
                     }*/
-                    
+
                     echo "Products deleted successfully.";
                 } else {
                     echo "Error deleting product records.";
@@ -136,13 +136,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ids']) && isset($_POS
                             if (file_exists($photoPath)) {
                                 unlink($photoPath);
                             }
-
-                            echo "Promotion deleted successfully.";
                         } else {
-                            echo "Error deleting promotion record.";
+                            echo "Error.";
                         }
                     }
                 }
+
+                echo "Promotion deleted successfully.";
                 break;
 
             default:
