@@ -7,7 +7,6 @@ if (empty($orderID)) {
     die("Invalid order ID.");
 }
 
-// Fetch the order and associated details
 $query = "
     SELECT o.orderID, o.orderDate, o.total, o.status,u.fullname, u.email, sa.addressLine1, sa.addressLine2, sa.city, sa.state, sa.postalCode, pm.paymentType
     FROM orders o
@@ -26,7 +25,7 @@ if (!$order) {
     die("Order not found.");
 }
 
-// Fetch order items
+
 $query = "
     SELECT od.orderDetailID, p.productName, od.qty,od.size,od.price 
     FROM order_detail od

@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="../css/admin.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../js/admin.js"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 
 <?php
 require 'base.php';
@@ -64,14 +63,14 @@ if (isset($_GET['id'])) {
 
 
             <?php
-            html_youtube_link('productVideoLink', 'YouTube Video Link', $video_link, true);
+            html_youtube_link('productVideoLink', 'YouTube Video Link', $video_link, false);
 
             //html_file_video('productVideo', 'Product Video', 'accept="video/*"'); 
             ?>
 
            <!-- <div id="videoPreviewContainer">
                 <?php
-                $stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
+                /*$stmt = $_db->prepare("SELECT video_link FROM product_video WHERE productID = ?");
                 $stmt->execute([$id]);
                 $video = $stmt->fetchColumn();
 
@@ -82,7 +81,7 @@ if (isset($_GET['id'])) {
                           </video>';
                 } else {
                     echo '<p>No video available for this product.</p>';
-                }
+                }*/
                 ?>
             </div>-->
 

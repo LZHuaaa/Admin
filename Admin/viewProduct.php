@@ -1,14 +1,14 @@
 <?php
-require 'base.php'; // Assuming base.php includes your database connection
+require 'base.php'; 
 
-// Get productID from query parameter
+
 $productID = req('productID');
 
 if (empty($productID)) {
     die("Invalid product ID.");
 }
 
-// Fetch the product details from the database
+
 $query = "
     SELECT p.productID, p.productName, p.productDesc, p.price, p.stockQuantity, p.soldQuantity, 
            COALESCE(pr.name, '-') AS promotionName, c.categoryname AS categoryName
@@ -49,7 +49,7 @@ $stmtSizes = $_db->prepare($querySizes);
 $stmtSizes->execute(['productID' => $productID]);
 $productSizes = $stmtSizes->fetchAll(PDO::FETCH_COLUMN);
 
-// Fetch product video from product_video table
+
 $queryVideo = "
     SELECT video_link
     FROM product_video

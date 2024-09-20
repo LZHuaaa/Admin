@@ -33,7 +33,7 @@ if ($search) {
     $searchCondition = "AND (username LIKE :search OR fullname LIKE :search OR email LIKE :search)";
 }
 
-require_once '../lib/SimplePager';
+require_once '../lib/SimplePager.php';
 
 
 $query = "SELECT * FROM user WHERE role='member' $searchCondition ORDER BY $sort $dir";

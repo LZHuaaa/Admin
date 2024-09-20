@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $soldQuantity = $_POST['soldQuantity'];
     $categoryID = $_POST['category'];
     $promotionID = $_POST['promotion'];
-    $productVideoLink = $_POST['productVideoLink'];  // Get the YouTube link
+    $productVideoLink = $_POST['productVideoLink'];  
 
     if (trim($promotionID) === '') {
         $promotionID = NULL;

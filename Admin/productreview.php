@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="../css/admin.css">
-<link rel="stylesheet" href="../css/header.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 
 <?php
 require 'base.php';
@@ -32,7 +29,7 @@ in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 // (2) Paging
 $page = req('page', 1);
 
-require_once '../lib/SimplePager';
+require_once '../lib/SimplePager.php';
 
 // Search filter
 $search = req('search', '');

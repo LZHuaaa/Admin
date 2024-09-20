@@ -29,7 +29,7 @@ in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 // (2) Paging
 $page = req('page', 1);
 
-require_once '../lib/SimplePager';
+require_once '../lib/SimplePager.php';
 
 $categoryID = req('categoryID', '');
 $min_price = req('min_price', '');

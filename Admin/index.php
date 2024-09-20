@@ -1,4 +1,4 @@
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../js/admin.js"></script> 
 <link rel="stylesheet" href="../css/admin.css">
@@ -101,7 +101,7 @@ $salesTrends = $salesTrendsStmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="chart-container canvas-container">
     <h2>Sales by Category</h2>
-    <canvas id="salesByCategoryChart" width="500" height="350"></canvas>
+    <canvas id="salesByCategoryChart" width="500" height="350" style="margin-left:40px;"></canvas>
 </div>
 </div>
 

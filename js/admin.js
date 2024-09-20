@@ -1,5 +1,6 @@
-//---------------------------------------------------------Admin Part-----------------------------------------------------------------------------------
 
+
+//-----------------------------------------------------Batch delete Part-------------------------
 $("#batch-delete-btn").click(function (event) {
   event.preventDefault();
 
@@ -61,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+
+//---------------------------------------------------------Admin Part-----------------------------------------------------------------------------------
+
 //addAdminForm, editAdminForm, resetPasswordForm
 $(document).ready(function () {
   function attachFormHandlers() {
@@ -103,7 +107,7 @@ $(document).ready(function () {
           alert(response);
           $("#edit-form-container").empty();
           window.location.href = "admin.php";
-          //loadAdminList();
+          
         },
         error: function () {
           alert("Error adding admin.");
@@ -135,7 +139,7 @@ $(document).ready(function () {
             alert(response);
             $("#edit-form-container").empty();
             window.location.href = "admin.php";
-            //loadAdminList();
+          
           },
           error: function () {
             alert("Error updating data.");
@@ -176,7 +180,7 @@ $(document).ready(function () {
       });
   }
 
-  // Click add button then jumpt to Add Admin Form
+  // Click add button then jump to Add Admin Form
   $(document).on("click", ".add-btn", function () {
     $.ajax({
       url: "addAdminForm.php",
@@ -260,7 +264,7 @@ $(document).ready(function () {
         success: function (response) {
           alert("Deleted Successfully!");
           window.location.href = "admin.php";
-          //loadAdminList();
+        
         },
         error: function () {
           alert("Error deleting data.");
@@ -269,21 +273,6 @@ $(document).ready(function () {
     }
   });
 
-  // Function to reload the admin list
-  /*
-  function loadAdminList() {
-    $.ajax({
-      url: "admin.php",
-      type: "GET",
-      success: function (response) {
-        var newTable = $(response).find("table").html();
-        $("table").html(newTable);
-      },
-      error: function () {
-        alert("Error loading the admin list");
-      },
-    });
-  }*/
 
   //Image change change change
   $("#image").change(function () {
@@ -521,7 +510,7 @@ $(document).ready(function () {
     });
   }
 
-  // Click add button then jum  to Add Category Form
+  // Click add button then jump  to Add Category Form
   $(document).on("click", ".add-category-btn", function () {
     $.ajax({
       url: "addCategoryForm.php",
@@ -608,6 +597,7 @@ $(document).ready(function () {
       });
     }
   });*/
+
 });
 //------------------------------------------------------Product part----------------------------------------------------------------------------------------------------
 
@@ -740,7 +730,7 @@ $(document).ready(function () {
   });
 
   $("#closeBtn").on("click", function () {
-    window.close(); // Or any other action to close the form
+    window.close(); 
   });
 });
 
@@ -786,7 +776,7 @@ function attachProductHandlers() {
         location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        // Handle error response
+        
         alert("Error occurred: " + textStatus);
       },
     });
@@ -800,7 +790,7 @@ $(document).ready(function () {
   });
 
   $("#batch-update-status").click(function () {
-    $("#batch-update-section").toggle(); // Show/hide the update section
+    $("#batch-update-section").toggle(); 
   });
 
   $("#batch-update-submit").click(function (e) {

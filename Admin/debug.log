@@ -4289,3 +4289,153 @@ Array
         )
 
 )
+Array
+(
+    [id] => 44
+    [productName] => Protein Shake
+    [productDescription] => Chocolate flavor protein powder
+    [sizeType] => 
+    [price] => 19.99
+    [stockQuantity] => 200
+    [soldQuantity] => 150
+    [category] => 45
+    [promotion] => 15
+    [productVideoLink] => 
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 40
+    [productName] => Dumbbells
+    [productDescription] => Set of 5kg dumbbells
+    [sizeType] => 
+    [price] => 29.99
+    [stockQuantity] => 100
+    [soldQuantity] => 90
+    [category] => 46
+    [promotion] => 14
+    [productVideoLink] => 
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+Array
+(
+    [id] => 40
+    [productName] => Dumbbells
+    [productDescription] => Set of 5kg dumbbells
+    [sizeType] => 
+    [price] => 29.99
+    [stockQuantity] => 100
+    [soldQuantity] => 90
+    [category] => 46
+    [promotion] => 14
+    [productVideoLink] => 
+)
+Array
+(
+    [productImages] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [full_path] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)

@@ -21,7 +21,7 @@ in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 // (2) Paging
 $page = req('page', 1);
 
-require_once '../lib/SimplePager';
+require_once '../lib/SimplePager.php';
 
 $p = new SimplePager("SELECT * FROM category ORDER BY $sort $dir", [], 10, $page);
 $arr = $p->result;
@@ -74,7 +74,7 @@ $_title = 'Manage Category';
     </div>
 </div>
 
-<!-- This div will hold the edit form -->
+
 <div id="edit-form-container" style="margin-top:40px;"></div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

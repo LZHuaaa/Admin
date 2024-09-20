@@ -27,7 +27,7 @@ in_array($dir, ['asc', 'desc']) || $dir = 'asc';
 // (2) Paging
 $page = req('page', 1);
 
-require_once '../lib/SimplePager';
+require_once '../lib/SimplePager.php';
 
 $p = new SimplePager("SELECT * FROM promotion ORDER BY $sort $dir", [], 10, $page);
 $arr = $p->result;

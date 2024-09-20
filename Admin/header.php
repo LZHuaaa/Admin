@@ -1,3 +1,33 @@
+<?php
+
+
+if (isset($_SESSION['adminID'])) {
+    $adminID = $_SESSION['adminID'];
+
+    $stmt = $_db->prepare("SELECT username, profile_photo FROM user WHERE userid = ?");
+    $stmt->execute([$adminID]);
+    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+    if ($admin) {
+        $username = htmlspecialchars($admin['username']);
+        $profilePhoto = htmlspecialchars($admin['profile_photo']);
+
+        if (empty($profilePhoto)) {
+            $profilePhoto = "../images/admin2.jpeg";
+        } else {
+            $profilePhoto = "../images/" . $profilePhoto;
+        }
+    } else {
+        $username = "Unknown Admin";
+        $profilePhoto = "../images/admin2.jpeg";
+    }
+} else {
+    $username = "Guest";
+    $profilePhoto = "../images/admin2.jpeg";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,12 +35,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_title ?? 'Untitled' ?></title>
-    <link rel="stylesheet" href="../css/header.css">
-    
+    <link rel="stylesheet" href="../css/adminHeader.css">
 
-    <!--use google font -->
+    <!-- Use Google Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../js/header.js"></script>
@@ -21,20 +49,21 @@
         <aside>
             <div class="top">
                 <div class="logo">
-                    <img src="../assests/logo/logo2.png" alt="">
+                    <img src="../assests/logo/adminHappyFitness.png" alt="">
                     <!--<h2>HAPPY FITNESS</h2>-->
                 </div>
             </div>
 
             <div class="top">
                 <div class="logo1">
-                    <img src="../images/profile-1.jpg" alt="">
-                    <h2>Hi, Lee Zhi Hua</h2>
+
+                    <img src="<?= $profilePhoto ?>" alt="Profile Picture" style="width: 40px; height: 40px; border-radius:50%; ">
+                    <h2>Hi, <?= $username ?></h2> 
                 </div>
             </div>
 
-            <div class="sidebar">
 
+            <div class="sidebar">
 
                 <a href="index.php">
                     <span class="material-icons-sharp">grid_view</span>
